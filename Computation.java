@@ -10,8 +10,8 @@ public class Computation
 	public void kitty_life_game()
 	{
 		int debut = 1, fin = 31;
-		for(int i = 1 ; i < 31 ; i++)
-			for(int j = 1 ; j < 31 ; j++)
+		for(int line = 1 ; line < 31 ; line++)
+			for(int column = 1 ; column < 31 ; column++)
 			{
 				if(cluster.isKittyAlive(line, column))
 				{
