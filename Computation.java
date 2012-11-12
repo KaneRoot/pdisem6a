@@ -9,18 +9,28 @@ public class Computation
 
 	public void kitty_life_game()
 	{
-		int debut = 1, fin = 31;
-		for(int line = 1 ; line < 31 ; line++)
-			for(int column = 1 ; column < 31 ; column++)
-			{
-				if(cluster.isKittyAlive(line, column))
+		int start;
+		int end_columns;
+		int end_line;
+
+		for(start = 1 ; start < 17 ; start++)
+		{
+			end_columns = (cluster.getNbColumns() *32) - start;
+			end_line = (cluster.getNbLines() *32) - start;
+
+			for(int line = start ; line < end_line ; line++)
+				for(int column = start ; column < end_columns ; column++)
 				{
-					if(shouldKittyDie(line, column))
+					if(cluster.isKittyAlive(line, column))
+					{
+						if(shouldKittyDie(line, column))
+							cluster.killKitty(line, column);
+					}
+					else if(shouldKittyRaise(line, column))
 						cluster.raiseKitty(line, column);
 				}
-				else if(shouldKittyRaise(line, column))
-					cluster.killKitty(line, column);
-			}
+			// TODO : faire la copie
+		}
 	}
 
 	private int nbKittiesLivingAround(int line, int column)

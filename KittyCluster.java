@@ -29,4 +29,12 @@ public class KittyCluster
 	{
 		setValue(line, column, false);
 	}
+	public int getNbLines()
+	{
+		return cluster.length;
+	}
+	public int getNbColumns()
+	{
+		return cluster[0].length;
+	}
 }
