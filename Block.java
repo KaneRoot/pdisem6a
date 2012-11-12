@@ -19,8 +19,9 @@ public class Block
 		grid[line] = setBitTo(grid[line], column, value);
 	}
 
-	private int setBitTo(int current_value, int column, int value)
+	private int setBitTo(int current_value, int column, boolean value)
 	{
-		return current_value & (0xFFFFFFFF & (value << column));
+		int tmp = value ? 1 : 0;
+		return current_value & (0xFFFFFFFF & (tmp << column));
 	}
 }
