@@ -11,7 +11,7 @@ public class KittyCluster
 				line % Block.BLOCK_SIZE, column % Block.BLOCK_SIZE);
 	}
 
-	public void setValue(int line, int column, boolean value)
+	private void setValue(int line, int column, boolean value)
 	{
 		int bloc_x = line / Block.BLOCK_SIZE;
 		int bloc_y = column / Block.BLOCK_SIZE;
@@ -22,11 +22,11 @@ public class KittyCluster
 
 	public void raiseKitty(int line, int column)
 	{
-		cluster.setValue(line, column, true);
+		setValue(line, column, true);
 	}
 
 	public void killKitty(int line, int column)
 	{
-		cluster.setValue(line, column, false);
+		setValue(line, column, false);
 	}
 }
