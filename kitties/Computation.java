@@ -1,6 +1,7 @@
 public class Computation
 {
 	private KittyCluster cluster;
+	private KittyHistory kittyhistory;
 
 	public Computation(KittyCluster c)
 	{

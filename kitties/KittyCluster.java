@@ -29,12 +29,28 @@ public class KittyCluster
 	{
 		setValue(line, column, false);
 	}
+
 	public int getNbLines()
 	{
 		return cluster.length;
 	}
+
 	public int getNbColumns()
 	{
 		return cluster[0].length;
+	}
+
+	public Block[][] getCopyCluster()
+	{
+		Block[][] copie_cluster = new Block[getNbLines()][getNbColumns()];
+		for(int i = 0 ; i < getNbLines() ; i++)
+			for(int j = 0 ; j < getNbColumns() ; j++)
+				copie_cluster[i][j] = new Block(this.cluster[i][j].getCopy());
+		return copie_cluster;
+	}
+
+	public KittyCluster getCopy()
+	{
+		return new KittyCluster(this.getCopyCluster());
 	}
 }

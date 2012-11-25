@@ -24,4 +24,8 @@ public class Block
 		int tmp = value ? 1 : 0;
 		return current_value & (0xFFFFFFFF & (tmp << column));
 	}
+	public int[] getCopy()
+	{
+		return grid;
+	}
 }
