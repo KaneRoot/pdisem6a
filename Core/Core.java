@@ -8,6 +8,10 @@ public class Core
         sizeHeight = nbLines;
         sizeWidth = nbColumns;
     }
+    public KittyCluster getClick(int n)
+    {
+        //return History.get(n);
+    }
     public static void main(String[] args)
     {
         try
