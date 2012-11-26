@@ -1,7 +1,7 @@
 //singleton keeping the history of all already calculated snapshots
 public class History
 {
-    private static final _instance = new History();
+    private static final History _instance = new History();
     private List<Snapshot> history = new LinkedList<Snapshot>();
 
     private History()
