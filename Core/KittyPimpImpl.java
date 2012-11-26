@@ -1,14 +1,14 @@
 import java.Remote;
 import java.rmi.server.UnicastRemoteObject;
-//Like an IRL PIMP, this class manages Kitties and gives them out
+//Like an IRL Pimp, this class manages Kitties and gives them out
 //to clients in need of satisfaction
-public class KittyPIMPImpl extends UnicastRemoteObject 
-    implements KittyPIMP {
+public class KittyPimpImpl extends UnicastRemoteObject 
+    implements KittyPimp {
 
     private KittyCluster subjects;
     private History achievements;
 
-    public KittyPIMPImpl(KittyCluster subjects)
+    public KittyPimpImpl(KittyCluster subjects)
     {
         this.subjects = subjects;
         achievements = History.getInstance();
