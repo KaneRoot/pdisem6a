@@ -18,11 +18,9 @@ public class Computation
 		for(start = 1 ; start < 17 ; start++)
 		{
 			this.oldCluster = this.cluster.getCopy();
-			this.oldCluster.displayKittyCluster();
 			end_columns = (oldCluster.getNbColumns()) - start;
 			end_line = (oldCluster.getNbLines()) - start;
 
-			System.out.println("NbLignes : " + end_line + " nbcolonnes : " + end_columns);
 			for(int line = start ; line < end_line ; line++)
 				for(int column = start ; column < end_columns ; column++)
 				{
@@ -35,7 +33,7 @@ public class Computation
 						cluster.raiseKitty(line, column);
 				}
 			this.kittyhistory.addSnapshot(this.oldCluster.getCopy());
-			try { java.lang.Thread.sleep(1000); } catch(Exception e) {}
+			//try { java.lang.Thread.sleep(1000); } catch(Exception e) {}
 		}
 	}
 
@@ -65,7 +63,7 @@ public class Computation
 	public static KittyCluster getNewRandomKittyCluster()
 	{
 		java.util.Random rd = new java.util.Random();
-		int NB_BLOCK = 1;
+		int NB_BLOCK = 2;
 		int[] entiers_random = new int[32];
 
 		Block[][] b = new Block[NB_BLOCK][NB_BLOCK];
@@ -73,10 +71,7 @@ public class Computation
 			for(int j = 0 ; j < NB_BLOCK ; j++)
 			{
 				for(int k = 0 ; k < 32 ; k++)
-				{
 					entiers_random[k] = rd.nextInt() ;
-					//System.out.print("" + entiers_random[k] + " ");
-				}
 
 				b[i][j] = new Block(entiers_random);
 			}
@@ -89,17 +84,17 @@ public class Computation
 		int k = 0;
 		for(KittyCluster kc : this.kittyhistory.getHistory())
 		{
-			System.out.println("## " + k++ + " ##");
+			System.out.println("## " + k + " ##");
 			kc.displayKittyCluster();
+			k++;
 		}
 	}
 
 	public static void main(String[] args)
 	{
 		KittyCluster kc = getNewRandomKittyCluster();
-		//kc.displayKittyCluster();
 		Computation compute = new Computation(kc);
 		compute.kitty_life_game();
-		//compute.displayHistory();
+		compute.displayHistory();
 	}
 }

@@ -60,7 +60,7 @@ public class KittyCluster
 		{
 			for(int j = 0 ; j < this.getNbColumns() ; j++)
 			{
-				String kitty = (this.isKittyAlive(i,j)) ? "o" : "x";
+				String kitty = (this.isKittyAlive(i,j)) ? "\033[32mo\033[00m" : "\033[31mx\033[00m";
 				System.out.print(kitty);
 			}
 			System.out.println("");
