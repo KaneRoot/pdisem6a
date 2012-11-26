@@ -1,4 +1,5 @@
-public class Snapshot extends ClusterBlock
+public class Snapshot 
 {
+    private KittyCluster kitties;
     private bool isComputed = false;
 }
