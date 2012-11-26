@@ -26,17 +26,21 @@ public class Block
 	{
         if(value)
         {
-            current_value |= (1<< column);
+            current_value |= (1 << column);
         }
         else
         {
-            current_value &= (0xFFFFFFFF & (0 << column));
+            current_value &= (0xFFFFFFFF ^ (1 << column));
         }
         return current_value;
 	}
 	public int[] getCopy()
 	{
-		return grid;
+		/*
+		int[] copy = new int[grid.length];
+		for(int i = 0 ; i < 
+		*/
+		return java.util.Arrays.copyOf(grid, grid.length);
 	}
     public static void main(String[] args)
     {
