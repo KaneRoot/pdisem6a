@@ -75,7 +75,7 @@ public class Computation
 				for(int k = 0 ; k < 32 ; k++)
 				{
 					entiers_random[k] = rd.nextInt() ;
-					System.out.print("" + entiers_random[k] + " ");
+					//System.out.print("" + entiers_random[k] + " ");
 				}
 
 				b[i][j] = new Block(entiers_random);
