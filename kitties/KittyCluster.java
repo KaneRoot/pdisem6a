@@ -32,19 +32,19 @@ public class KittyCluster
 
 	public int getNbLines()
 	{
-		return cluster.length;
+		return cluster.length * Block.BLOCK_SIZE;
 	}
 
 	public int getNbColumns()
 	{
-		return cluster[0].length;
+		return cluster[0].length * Block.BLOCK_SIZE;
 	}
 
 	public Block[][] getCopyCluster()
 	{
-		Block[][] copie_cluster = new Block[getNbLines()][getNbColumns()];
-		for(int i = 0 ; i < getNbLines() ; i++)
-			for(int j = 0 ; j < getNbColumns() ; j++)
+		Block[][] copie_cluster = new Block[getNbLines() / Block.BLOCK_SIZE][getNbColumns() / Block.BLOCK_SIZE];
+		for(int i = 0 ; i < getNbLines() / Block.BLOCK_SIZE ; i++)
+			for(int j = 0 ; j < getNbColumns() / Block.BLOCK_SIZE; j++)
 				copie_cluster[i][j] = new Block(this.cluster[i][j].getCopy());
 		return copie_cluster;
 	}
@@ -52,5 +52,19 @@ public class KittyCluster
 	public KittyCluster getCopy()
 	{
 		return new KittyCluster(this.getCopyCluster());
+	}
+
+	public void displayKittyCluster()
+	{
+		for(int i = 0 ; i < this.getNbLines() ; i++)
+		{
+			for(int j = 0 ; j < this.getNbColumns() ; j++)
+			{
+				String kitty = (this.isKittyAlive(i,j)) ? "o" : "x";
+				System.out.print(kitty);
+			}
+			System.out.println("");
+		}
+		System.out.println("");
 	}
 }

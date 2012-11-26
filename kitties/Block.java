@@ -3,6 +3,9 @@ public class Block
 	public static int BLOCK_SIZE = 32;
 	// tableau de 32 * 32 bits 
 	private int[] grid = new int[BLOCK_SIZE];
+
+	public Block() {}
+
 	public Block(int[] tab)
 	{
 		for(int i = 0 ; i < BLOCK_SIZE ; i++)

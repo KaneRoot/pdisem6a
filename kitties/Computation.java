@@ -6,6 +6,7 @@ public class Computation
 	public Computation(KittyCluster c)
 	{
 		this.cluster = c;
+		this.kittyhistory = new KittyHistory();
 	}
 
 	public void kitty_life_game()
@@ -14,10 +15,10 @@ public class Computation
 		int end_columns;
 		int end_line;
 
-		for(start = 1 ; start < 17 ; start++)
+		for(start = 1 ; start < 16 ; start++)
 		{
-			end_columns = (cluster.getNbColumns() *32) - start;
-			end_line = (cluster.getNbLines() *32) - start;
+			end_columns = (cluster.getNbColumns()) - start;
+			end_line = (cluster.getNbLines()) - start;
 
 			for(int line = start ; line < end_line ; line++)
 				for(int column = start ; column < end_columns ; column++)
@@ -30,7 +31,9 @@ public class Computation
 					else if(shouldKittyRaise(line, column))
 						cluster.raiseKitty(line, column);
 				}
-			// TODO : faire la copie
+			this.kittyhistory.addSnapshot(this.cluster.getCopy());
+			this.cluster.displayKittyCluster();
+			try { java.lang.Thread.sleep(1000); } catch(Exception e) {}
 		}
 	}
 
@@ -53,6 +56,49 @@ public class Computation
 
 	private boolean shouldKittyRaise(int line, int column)
 	{
+		//System.out.println("line : " + line + " column : " + column);
 		return nbKittiesLivingAround(line, column) == 3;
+	}
+
+	public static KittyCluster getNewRandomKittyCluster()
+	{
+		java.util.Random rd = new java.util.Random();
+		int NB_BLOCK = 1;
+		int[] entiers_random = new int[32];
+
+		Block[][] b = new Block[NB_BLOCK][NB_BLOCK];
+		for(int i = 0 ; i < NB_BLOCK ; i++)
+			for(int j = 0 ; j < NB_BLOCK ; j++)
+			{
+				for(int k = 0 ; k < 32 ; k++)
+				{
+					entiers_random[k] = rd.nextInt() ;
+					System.out.print("" + entiers_random[k] + " ");
+				}
+
+				b[i][j] = new Block(entiers_random);
+			}
+
+		return new KittyCluster(b);
+	}
+
+	public void displayHistory()
+	{
+		int k = 0;
+		for(KittyCluster kc : this.kittyhistory.getHistory())
+		{
+			System.out.println("## " + k++ + " ##");
+			//System.out.println("NbLignes : " + kc.getNbLines() + " nbcolonnes : " + kc.getNbColumns());
+			kc.displayKittyCluster();
+		}
+	}
+
+	public static void main(String[] args)
+	{
+		KittyCluster kc = getNewRandomKittyCluster();
+		//kc.displayKittyCluster();
+		Computation compute = new Computation(kc);
+		compute.kitty_life_game();
+		//compute.displayHistory();
 	}
 }
