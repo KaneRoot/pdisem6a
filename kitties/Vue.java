@@ -61,6 +61,12 @@ public class Vue extends JPanel
 		Computation compute = new Computation(kc);
 		compute.kitty_life_game();
 		//compute.displayHistory();
+
+		for(int i = 0 ; ; i++)
+		{
+			vdisplay(.getClick(i));
+			try { java.lang.Thread.sleep(1000); } catch(Exception e) {}
+		}
 		for(KittyCluster kcluster : compute.getHistory().getHistory())
 		{
 			v.display(kcluster);
