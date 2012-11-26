@@ -1,7 +1,7 @@
 all : compilation
 
 test : 
-	java Computation
+	java Vue
 
 compilation :
 	javac *.java

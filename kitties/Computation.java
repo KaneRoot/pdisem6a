@@ -63,14 +63,14 @@ public class Computation
 	public static KittyCluster getNewRandomKittyCluster()
 	{
 		java.util.Random rd = new java.util.Random();
-		int NB_BLOCK = 2;
-		int[] entiers_random = new int[32];
+		int NB_BLOCK = 8;
+		int[] entiers_random = new int[Block.BLOCK_SIZE];
 
 		Block[][] b = new Block[NB_BLOCK][NB_BLOCK];
 		for(int i = 0 ; i < NB_BLOCK ; i++)
 			for(int j = 0 ; j < NB_BLOCK ; j++)
 			{
-				for(int k = 0 ; k < 32 ; k++)
+				for(int k = 0 ; k < Block.BLOCK_SIZE ; k++)
 					entiers_random[k] = rd.nextInt() ;
 
 				b[i][j] = new Block(entiers_random);
@@ -90,11 +90,8 @@ public class Computation
 		}
 	}
 
-	public static void main(String[] args)
+	public KittyHistory getHistory()
 	{
-		KittyCluster kc = getNewRandomKittyCluster();
-		Computation compute = new Computation(kc);
-		compute.kitty_life_game();
-		compute.displayHistory();
+		return this.kittyhistory;
 	}
 }
