@@ -1,8 +1,23 @@
+//singleton keeping the history of all already calculated snapshots
 public class History
 {
-    private List<ClusterBlock> history = new LinkedList<ClusterBlock>();
-    public void addNextClick(ClusterBlock nextClick)
+    private static final _instance = new History();
+    private List<Snapshot> history = new LinkedList<Snapshot>();
+
+    private History()
+    {
+    }
+    public static History getInstance()
+    {
+        return _instance;
+    }
+    public void addNextClick(KittyCluster nextClick)
     {
         history.Add(nextClick);
     }
+    public KittyCluster getSnapshot(int click)
+    {
+        return (KittyCluster) history.get(click);
+    }
+    
 }
