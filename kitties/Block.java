@@ -24,11 +24,25 @@ public class Block
 
 	private int setBitTo(int current_value, int column, boolean value)
 	{
-		int tmp = value ? 1 : 0;
-		return current_value & (0xFFFFFFFF & (tmp << column));
+        if(value)
+        {
+            current_value |= (1<< column);
+        }
+        else
+        {
+            current_value &= (0xFFFFFFFF & (0 << column));
+        }
+        return current_value;
 	}
 	public int[] getCopy()
 	{
 		return grid;
 	}
+    public static void main(String[] args)
+    {
+        int[] tmp = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        Block b = new Block(tmp);
+        b.setValue(0,3, true);
+        System.out.println(b.getCopy()[0] + " " + b.getValue(0,3));
+    }
 }
