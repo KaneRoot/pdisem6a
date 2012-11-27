@@ -25,7 +25,7 @@ public class Serveur
 		jf.setVisible(true);
 	}
 
-	public static void main(String[] args)
+	public void go()
 	{
 		prepareDisplay();
 
@@ -46,5 +46,11 @@ public class Serveur
 			v.display(kcluster);
 			try { java.lang.Thread.sleep(500); } catch(Exception e) {}
 		}
+	}
+
+	public static void main(String[] args)
+	{
+		Serveur s = new Serveur();
+		s.go();
 	}
 }
