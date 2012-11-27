@@ -19,7 +19,7 @@ public class GlobalCarnageHistory
     }
     public static KittyCluster getSnapshot(int click)
     {
-        return (KittyCluster) history.get(click);
+        return (history.size() > click) ? (KittyCluster) history.get(click) : (KittyCluster) null;
     }
     
 }

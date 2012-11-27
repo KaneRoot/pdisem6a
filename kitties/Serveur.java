@@ -5,11 +5,12 @@ import javax.swing.*;
 
 public class Serveur
 {
-	public String IP;
-	public String PORT;
-
-	public static int NB_BLOCKS;
+	public static int TIME_BETWEEN_FRAMES = 1000;
 	public static KittyPimp kitty_pimp = null;
+
+	private String IP;
+	private String PORT;
+	private int NB_BLOCKS;
 	private JFrame jf = null;
 	private Vue v = null;
 
@@ -48,18 +49,18 @@ public class Serveur
 		jf.setSize(NB_BLOCKS * Block.BLOCK_SIZE * Vue.TAILLE_BLOCS + 500, 
 				NB_BLOCKS * Block.BLOCK_SIZE * Vue.TAILLE_BLOCS + 30);
 
-		jf.setLocationRelativeTo(null);
-		jf.setVisible(true);
+		jf.setLocationRelativeTo(null); // set the display to the center of the screen
 	}
 
 	public void go()
 	{
 		prepareDisplay();
 
-		KittyCluster kc = KittyCluster.getNewRandomKittyCluster(Serveur.NB_BLOCKS);
-		v.display(kc);
-//		Computation compute = new Computation(kc);
-//		compute.kitty_life_game(16);
+		KittyCluster kc = KittyCluster.getNewRandomKittyCluster(NB_BLOCKS);
+		/*
+		Computation compute = new Computation(kc);
+		compute.kitty_life_game(16);
+		*/
 
 		try
 		{
@@ -69,15 +70,28 @@ public class Serveur
 		}
 		catch (RemoteException re)      { System.out.println(re) ; }
 		catch (MalformedURLException e) { System.out.println(e) ;  }
+		v.display(kc);
+		jf.setVisible(true);
 
-	/*	À mettre dans un thread
-	 *	Peut éventuellement s'arrêter si on n'a pas calculé assez vite
+		KittyCluster kc_tmp;
+
+		/*	
+			À mettre dans un thread
+			Peut éventuellement s'arrêter si on n'a pas calculé assez vite
+		*/
 		for(int i = 0 ; ; i++)
 		{
+			kc_tmp = null;
+			kc_tmp = this.getClick(i);
+			while(kc_tmp == null)
+			{
+				try { java.lang.Thread.sleep(TIME_BETWEEN_FRAMES); } catch(Exception e) {}
+				kc_tmp = this.getClick(i);
+			}
+
 			v.display(this.getClick(i));
-			try { java.lang.Thread.sleep(1000); } catch(Exception e) {}
+			try { java.lang.Thread.sleep(TIME_BETWEEN_FRAMES); } catch(Exception e) {}
 		}
-		   */
 		/*
 		for(KittyCluster kcluster : compute.getHistory().getHistory())
 		{
@@ -89,7 +103,7 @@ public class Serveur
 
 	public static void main(String[] args)
 	{
-		Serveur s = new Serveur();
+		Serveur s = new Serveur(Integer.parseInt(args[0]), args[1], args[2]);
 		s.go();
 	}
 }

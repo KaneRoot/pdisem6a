@@ -1,15 +1,17 @@
 CARNAGE_ADDRESS = "localhost"
 PORT = "9001"
+# it means N * N * block_size (32 * 32 kitties presently)
+CARNAGE_FIELD_SIZE = "6"
 
 all : compilation
 
 lancer_serveur : destroy compilation
 	rmiregistry $(PORT) &
 	@sleep 1
-	java Serveur $(PORT)
+	java Serveur $(CARNAGE_FIELD_SIZE) $(CARNAGE_ADDRESS) $(PORT)
 
 lancer_client : compilation
-	java Client $(MACHINE) $(PORT)
+	java Client $(CARNAGE_ADDRESS) $(PORT)
 
 compilation :
 	javac *.java
