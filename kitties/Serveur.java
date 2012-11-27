@@ -5,16 +5,28 @@ import javax.swing.*;
 
 public class Serveur
 {
-	public static String IP = "0.0.0.0";
-	public static String PORT = "9000";
+	public String IP;
+	public String PORT;
 
 	public static int NB_BLOCKS;
 	public static KittyPimp kitty_pimp = null;
 	private JFrame jf = null;
 	private Vue v = null;
 
-	public Serveur() { this(10); }
-	public Serveur(int nb_blocks) { Serveur.NB_BLOCKS = nb_blocks; }
+	public Serveur() 
+	{ 
+		this(10); 
+	}
+	public Serveur(int nb_blocks) 
+	{ 
+		this(nb_blocks, "0.0.0.0", "9000");
+	}
+	public Serveur(int nb_blocks, String address, String port)
+	{
+		this.NB_BLOCKS = nb_blocks; 
+		this.IP = address;
+		this.PORT = port;
+	}
 
 	public KittyCluster getClick(int n)
 	{
@@ -52,7 +64,7 @@ public class Serveur
 		try
 		{
 			KittyPimpImpl objlocal = new KittyPimpImpl(this, kc);
-			Naming.rebind("rmi://" + Serveur.IP + ":" + Serveur.PORT + "/KittyPimp", objlocal);
+			Naming.rebind("rmi://" + this.IP + ":" + this.PORT + "/KittyPimp", objlocal);
 			System.out.println("RDY TO KILL SOME KITTIES");
 		}
 		catch (RemoteException re)      { System.out.println(re) ; }
