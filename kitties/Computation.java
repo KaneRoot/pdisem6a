@@ -9,13 +9,17 @@ public class Computation
 		this.kittyhistory = new KittyHistory();
 	}
 
-	public void kitty_life_game()
+	public void kitty_life_game() { kitty_life_game(16); }
+
+	public void kitty_life_game(int nb_tours)
 	{
 		int start;
 		int end_columns;
 		int end_line;
 
-		for(start = 1 ; start < 17 ; start++)
+		this.kittyhistory.setHistorySize(nb_tours); // taille de l'historique
+
+		for(start = 1 ; start <= nb_tours ; start++)
 		{
 			this.oldCluster = this.cluster.getCopy();
 			end_columns = (oldCluster.getNbColumns()) - start;
@@ -33,7 +37,6 @@ public class Computation
 						cluster.raiseKitty(line, column);
 				}
 			this.kittyhistory.addSnapshot(this.oldCluster.getCopy());
-			//try { java.lang.Thread.sleep(1000); } catch(Exception e) {}
 		}
 	}
 
@@ -60,31 +63,11 @@ public class Computation
 		return nbKittiesLivingAround(line, column) == 3;
 	}
 
-	public static KittyCluster getNewRandomKittyCluster()
-	{
-		java.util.Random rd = new java.util.Random();
-		int NB_BLOCK = 8;
-		int[] entiers_random = new int[Block.BLOCK_SIZE];
-
-		Block[][] b = new Block[NB_BLOCK][NB_BLOCK];
-		for(int i = 0 ; i < NB_BLOCK ; i++)
-			for(int j = 0 ; j < NB_BLOCK ; j++)
-			{
-				for(int k = 0 ; k < Block.BLOCK_SIZE ; k++)
-					entiers_random[k] = rd.nextInt() ;
-
-				b[i][j] = new Block(entiers_random);
-			}
-
-		return new KittyCluster(b);
-	}
-
 	public void displayHistory()
 	{
 		int k = 0;
 		for(KittyCluster kc : this.kittyhistory.getHistory())
 		{
-			System.out.println("## " + k + " ##");
 			kc.displayKittyCluster();
 			k++;
 		}

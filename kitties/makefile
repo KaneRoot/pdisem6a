@@ -1,7 +1,7 @@
 all : compilation
 
 test : 
-	java Vue
+	java Serveur
 
 compilation :
 	javac *.java

@@ -45,32 +45,4 @@ public class Vue extends JPanel
 		g.drawString(message, getWidth() - ( message.length() + 5)*6 , 35);
 	}
 
-	public static void main(String[] args)
-	{
-		Vue v = new Vue();
-		KittyCluster kc = Computation.getNewRandomKittyCluster();
-		JFrame test = new JFrame();
-		test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		test.add(v);
-		v.display(kc);
-		test.setTitle("Kill Kitties !");
-		test.setSize(kc.getNbColumns() * Vue.TAILLE_BLOCS + 500, kc.getNbLines() * Vue.TAILLE_BLOCS + 30);
-		test.setLocationRelativeTo(null);
-		test.setVisible(true);
-
-		Computation compute = new Computation(kc);
-		compute.kitty_life_game();
-		//compute.displayHistory();
-
-		for(int i = 0 ; ; i++)
-		{
-			vdisplay(.getClick(i));
-			try { java.lang.Thread.sleep(1000); } catch(Exception e) {}
-		}
-		for(KittyCluster kcluster : compute.getHistory().getHistory())
-		{
-			v.display(kcluster);
-			try { java.lang.Thread.sleep(1000); } catch(Exception e) {}
-		}
-	}
 }
