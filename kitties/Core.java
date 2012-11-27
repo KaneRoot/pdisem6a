@@ -10,7 +10,7 @@ public class Core
     }
     public KittyCluster getClick(int n)
     {
-        //return History.get(n);
+        //return GlobalCarnageHistory.get(n);
     }
     public static void main(String[] args)
     {

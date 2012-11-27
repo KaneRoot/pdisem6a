@@ -1,13 +1,13 @@
 //singleton keeping the history of all already calculated snapshots
-public class History
+public class GlobalCarnageHistory
 {
-    private static final History _instance = new History();
+    private static final GlobalCarnageHistory _instance = new GlobalCarnageHistory();
     private List<Snapshot> history = new LinkedList<Snapshot>();
 
-    private History()
+    private GlobalCarnageHistory()
     {
     }
-    public static History getInstance()
+    public static GlobalCarnageHistory getInstance()
     {
         return _instance;
     }

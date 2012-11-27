@@ -19,7 +19,7 @@ public class KittyPimpImpl extends UnicastRemoteObject
 
     private KittyCluster subjects;
     private KittyCluster[] genocideResults = new KittyCluster[16];
-    private History achievements;
+    private GlobalCarnageHistory achievements;
     private ArrayList<Task> tasks = new ArrayList<Task>();
     private int lastLicense = 0;
     private HashTable<Integer,Task> assignements = new HashTable<Integer, Task>();
@@ -27,7 +27,7 @@ public class KittyPimpImpl extends UnicastRemoteObject
     public KittyPimpImpl(KittyCluster subjects)
     {
         this.subjects = subjects;
-        achievements = History.getInstance();
+        achievements = GlobalCarnageHistory.getInstance();
     }
     public int gimmeLicenseToKill() throws RemoteException
     {
