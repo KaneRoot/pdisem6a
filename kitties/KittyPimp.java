@@ -1,4 +1,6 @@
-import java.Remote;
+import java.rmi.*;
+import java.util.*;
+import java.rmi.server.UnicastRemoteObject;
 import java.rmi.RemoteException;
 
 public interface KittyPimp extends Remote {

@@ -1,9 +1,13 @@
-import java.Remote;
+import java.rmi.*;
+import java.util.*;
 import java.rmi.server.UnicastRemoteObject;
+
+
 //Like an IRL Pimp, this class manages Kitties and gives them out
 //to clients in need of satisfaction
 public class KittyPimpImpl extends UnicastRemoteObject 
-    implements KittyPimp {
+    implements KittyPimp 
+{
 
     private class Task
     {
@@ -17,15 +21,17 @@ public class KittyPimpImpl extends UnicastRemoteObject
         }
     }
 
+	private Serveur serveur = null;
     private KittyCluster subjects;
     private KittyCluster[] genocideResults = new KittyCluster[16];
     private GlobalCarnageHistory achievements;
     private ArrayList<Task> tasks = new ArrayList<Task>();
     private int lastLicense = 0;
-    private HashTable<Integer,Task> assignements = new HashTable<Integer, Task>();
+    private HashMap<Integer,Task> assignements = new HashMap<Integer, Task>();
 
-    public KittyPimpImpl(KittyCluster subjects)
+    public KittyPimpImpl(Serveur s, KittyCluster subjects) throws RemoteException
     {
+		this.serveur = s;
         this.subjects = subjects;
         achievements = GlobalCarnageHistory.getInstance();
     }

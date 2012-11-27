@@ -2,6 +2,7 @@ import java.net.*;
 import java.rmi.*;
 public class Core
 {
+	/*
     int sizeHeight, sizeWidth;
     public Core(int nbLines, int nbColumns)
     {
@@ -23,4 +24,5 @@ public class Core
         catch (RemoteException re)      { System.out.println(re) ; }
         catch (MalformedURLException e) { System.out.println(e) ;  }
     }
+	*/
 }

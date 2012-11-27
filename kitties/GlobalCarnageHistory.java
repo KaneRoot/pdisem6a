@@ -1,8 +1,10 @@
+import java.util.*;
+
 //singleton keeping the history of all already calculated snapshots
 public class GlobalCarnageHistory
 {
     private static final GlobalCarnageHistory _instance = new GlobalCarnageHistory();
-    private List<Snapshot> history = new LinkedList<Snapshot>();
+    private static LinkedList<KittyCluster> history = new LinkedList<KittyCluster>();
 
     private GlobalCarnageHistory()
     {
@@ -11,11 +13,11 @@ public class GlobalCarnageHistory
     {
         return _instance;
     }
-    public void addNextClick(KittyCluster nextClick)
+    public static void addNextClick(KittyCluster nextClick)
     {
-        history.Add(nextClick);
+        history.add(nextClick.getCopy());
     }
-    public KittyCluster getSnapshot(int click)
+    public static KittyCluster getSnapshot(int click)
     {
         return (KittyCluster) history.get(click);
     }

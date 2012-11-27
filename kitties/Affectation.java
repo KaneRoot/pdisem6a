@@ -1,6 +1,7 @@
 public class Affectation
 {
-    private bool isComputed = false;
+	/*
+    private boolean isComputed = false;
     private Slave assignedTo = null;
 
     public void Assign(Slave s)
@@ -22,5 +23,5 @@ public class Affectation
     {
         return isComputed;
     }
-    
+    */
 }
