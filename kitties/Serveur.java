@@ -64,7 +64,7 @@ public class Serveur
 
 		try
 		{
-			KittyPimpImpl objlocal = new KittyPimpImpl(this, kc);
+			KittyPimpImpl objlocal = new KittyPimpImpl(kc);
 			Naming.rebind("rmi://" + this.IP + ":" + this.PORT + "/KittyPimp", objlocal);
 			System.out.println("RDY TO KILL SOME KITTIES");
 		}

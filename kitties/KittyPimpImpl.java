@@ -21,17 +21,15 @@ public class KittyPimpImpl extends UnicastRemoteObject
         }
     }
 
-	private Serveur serveur = null;
     private KittyCluster subjects;
-    private KittyCluster[] genocideResults = new KittyCluster[16];
+    private KittyCluster[] genocideResults = new KittyCluster[Block.BLOCK_SIZE];
     private GlobalCarnageHistory achievements;
     private ArrayList<Task> tasks = new ArrayList<Task>();
     private int lastLicense = 0;
     private HashMap<Integer,Task> assignements = new HashMap<Integer, Task>();
 
-    public KittyPimpImpl(Serveur s, KittyCluster subjects) throws RemoteException
+    public KittyPimpImpl(KittyCluster subjects) throws RemoteException
     {
-		this.serveur = s;
         this.subjects = subjects;
         achievements = GlobalCarnageHistory.getInstance();
     }
@@ -40,9 +38,38 @@ public class KittyPimpImpl extends UnicastRemoteObject
         lastLicense++;
         return lastLicense;
     }
-    private void divideInTasks(int nbTasks)
+    private int calculateNumberOfcolumns()
     {
-       
+        int n;
+        for(n = 1;n*n< lastLicense*2; n++);
+        return n;
+    }
+    private void createTasks()
+    {
+        int numberOfLines = calculateNumberOfcolumns();
+        //On calcule la taille des blocs que les clients doivent calculer
+        int sizeLine = subjects.getNbBlockLines() / numberOfLines;
+        int sizeColumn = subjects.getNbBlockColumns() / numberOfLines;
+        // On créer tout les tasks
+        for(int i = 0; i <  subjects.getNbBlockLines(); i+= sizeLine)
+        {
+            for(int j = 0; j < subjects.getNbBlockColumns(); i += sizeColumn)
+            {
+                // on s'occupe de la derniere colonne et ligne, dans le
+                // cas ou c'est pas un multiple.
+                int tmpSizeLine = sizeLine;
+                int tmpSizeColumn = sizeColumn;
+                if(i + sizeLine <= subjects.getNbBlockLines())
+                {
+                    tmpSizeLine = subjects.getNbBlockLines() - i;
+                }
+                if(j + sizeColumn <= subjects.getNbBlockColumns())
+                {
+                    tmpSizeColumn = subjects.getNbBlockColumns() - j;
+                }
+                tasks.add(new Task(i, j, tmpSizeColumn, tmpSizeColumn));
+            }
+        }
     }
     public KittyCluster gimmeKittiesToKill(int license) throws RemoteException
     {

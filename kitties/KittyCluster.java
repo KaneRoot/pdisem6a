@@ -28,6 +28,10 @@ public class KittyCluster
 
 	public int getNbColumns() { return cluster[0].length * Block.BLOCK_SIZE; }
 
+	public int getNbBlockLines() { return cluster.length; }
+
+	public int getNbBlockColumns() { return cluster[0].length; }
+
 	public KittyCluster getCopy() { return new KittyCluster(this.getCopyCluster()); }
 
 	public Block[][] getCopyCluster()
