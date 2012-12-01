@@ -56,7 +56,7 @@ public class KittyPimpImpl extends UnicastRemoteObject
         // On créer tout les tasks
         for(int i = 0; i <  subjects.getNbBlockLines(); i+= sizeLine)
         {
-            for(int j = 0; j < subjects.getNbBlockColumns(); i += sizeColumn)
+            for(int j = 0; j < subjects.getNbBlockColumns(); j += sizeColumn)
             {
                 // on s'occupe de la derniere colonne et ligne, dans le
                 // cas ou c'est pas un multiple.
