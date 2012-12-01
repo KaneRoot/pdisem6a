@@ -23,21 +23,24 @@ public class Vue extends JPanel
 		//g.setColor(new Color(140,140,140));
 		//g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-		int x = 0, y = 0;
-
-		for(int i = 0 ; i < kitties.getNbLines() ; i++)
+		if(kitties != null)
 		{
-			for(int j = 0 ; j < kitties.getNbColumns() ; j++)
+			int x = 0, y = 0;
+
+			for(int i = 0 ; i < kitties.getNbLines() ; i++)
 			{
-				if(kitties.isKittyAlive(i, j))
-					g.setColor(new Color(0,255,0));
-				else
-					g.setColor(new Color(255,0,0));
-				g.fillRect(x, y, x+TAILLE_BLOCS, y+TAILLE_BLOCS);
-				x += TAILLE_BLOCS;
+				for(int j = 0 ; j < kitties.getNbColumns() ; j++)
+				{
+					if(kitties.isKittyAlive(i, j))
+						g.setColor(new Color(0,255,0));
+					else
+						g.setColor(new Color(255,0,0));
+					g.fillRect(x, y, x+TAILLE_BLOCS, y+TAILLE_BLOCS);
+					x += TAILLE_BLOCS;
+				}
+				y += TAILLE_BLOCS;
+				x = 0;
 			}
-			y += TAILLE_BLOCS;
-			x = 0;
 		}
 
 		g.setColor(new Color(0,0,0));
