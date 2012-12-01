@@ -13,6 +13,9 @@ lancer_serveur : destroy compilation
 lancer_client : compilation
 	java Client $(CARNAGE_ADDRESS) $(PORT)
 
+watch_kitties : compilation
+	java WatchTheKittiesDie $(CARNAGE_FIELD_SIZE) $(CARNAGE_ADDRESS) $(PORT)
+
 compilation :
 	javac *.java
 
