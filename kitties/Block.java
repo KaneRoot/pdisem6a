@@ -34,6 +34,10 @@ public class Block
         }
         return current_value;
 	}
+    public Block getBlockCopy()
+    {
+        return new Block(getCopy());
+    }
 	public int[] getCopy()
 	{
 		/*

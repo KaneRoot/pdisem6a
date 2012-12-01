@@ -50,14 +50,14 @@ public class KittyCluster
         {
             for(int j = -1; j < sizeColumn +1; j++)
             {
-                correctedX = startingBlockLine + i;
-                correctedY = startingBlockLine + j;
+                int correctedX = startingBlockLine + i;
+                int correctedY = startingBlockLine + j;
                 if(correctedX < 0) correctedX += getNbBlockLines();
                 if(correctedY < 0) correctedY += getNbBlockColumns();
                 if(correctedX >= getNbBlockLines()) correctedX %= getNbBlockLines();
                 if(correctedY >= getNbBlockColumns()) correctedY %= getNbBlockColumns();
 
-                result[i][j]= cluster[correctedX][correctedY];
+                result[i][j]= cluster[correctedX][correctedY].getBlockCopy();
             }
         }
         return new KittyCluster(result);

@@ -32,6 +32,7 @@ public class KittyPimpImpl extends UnicastRemoteObject
     {
         this.subjects = subjects;
         achievements = GlobalCarnageHistory.getInstance();
+        createTasks();
     }
     public int gimmeLicenseToKill() throws RemoteException
     {
@@ -75,15 +76,20 @@ public class KittyPimpImpl extends UnicastRemoteObject
     }
     public KittyCluster gimmeKittiesToKill(int license) throws RemoteException
     {
+        KittyCluster victims = null;
         //récuperation de la tache à faire.
-        if(tasks.size() == 0) throw new RemoteException("There is nothing to kill, please come back later");
-        Task assignment = tasks.get(0);
-        tasks.remove(0);
-        assignments.put(license, assignment);
+        if(tasks.size() == 0)
+        {
+            Task assignment = tasks.get(0);
+            tasks.remove(0);
+            assignments.put(license, assignment);
 
-        //creation du kittyCluster à calculer
+            victims = subjects.getCustomSubCopy(assignment.startX, assignment.startY,
+                assignment.sizeX, assignment.sizeY);
+            
+        }
 
-        return subjects;
+        return victims;
     }
 
 	public KittyCluster gimmeSnapshotOfMassacre(int snapshot_number)
