@@ -6,7 +6,6 @@ import javax.swing.*;
 public class WatchTheKittiesDie
 {
 	public static int TIME_BETWEEN_FRAMES = 1000;
-	public int NB_BLOCKS;
 
 	private JFrame jf = null;
 	private Vue v = null;
@@ -47,6 +46,7 @@ public class WatchTheKittiesDie
 				NB_BLOCKS * Block.BLOCK_SIZE * Vue.TAILLE_BLOCS + 30);
 
 		jf.setLocationRelativeTo(null); // set the display to the center of the screen
+		jf.setVisible(true);
 	}
 
 	public void go()
@@ -57,29 +57,23 @@ public class WatchTheKittiesDie
 		KittyPimp datKittyPimp = null;
 		KittyCluster cluster = null;
 
-		if(args.length != 2)
-		{
-			System.out.println("Usage : java WatchTheKittiesDie <serveur> <port>");
-			System.exit(-1);
-		}
-
-		jf.setVisible(true);
-
 		try
 		{
-			datKittyPimp = (KittyPimp) Naming.lookup("rmi://"+args[0]+":"+args[1]+"/KittyPimp") ;
+			datKittyPimp = (KittyPimp) Naming.lookup("rmi://"+ this.IP +":"+ this.PORT +"/KittyPimp") ;
 
-			while(1)
+			while(true)
 			{
 				cluster = datKittyPimp.gimmeSnapshotOfMassacre(snapshot_count);
 				while(cluster == null)
 				{
+					System.out.println("Wait : no result");
 					try { java.lang.Thread.sleep(TIME_BETWEEN_FRAMES); } catch(Exception e) {}
 					cluster = datKittyPimp.gimmeSnapshotOfMassacre(snapshot_count);
 				}
 				snapshot_count++;
 				v.display(cluster);
 				cluster = null;
+				try { java.lang.Thread.sleep(TIME_BETWEEN_FRAMES); } catch(Exception e) {}
 			}
 		}
 		catch (Exception e)
@@ -91,6 +85,12 @@ public class WatchTheKittiesDie
 
 	public static void main(String[] args)
 	{
+		if(args.length != 3)
+		{
+			System.out.println("Usage : java WatchTheKittiesDie <field_size> <serveur> <port>");
+			System.exit(-1);
+		}
+
 		WatchTheKittiesDie wtkd = new WatchTheKittiesDie(Integer.parseInt(args[0]), args[1], args[2]);
 		wtkd.go();
 	}

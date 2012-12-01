@@ -85,6 +85,13 @@ public class KittyPimpImpl extends UnicastRemoteObject
 
         return subjects;
     }
+
+	public KittyCluster gimmeSnapshotOfMassacre(int snapshot_number)
+		throws RemoteException
+	{
+		return GlobalCarnageHistory.getSnapshot(snapshot_number);
+	}
+
     public void resultsOfTheGenocide(KittyHistory results, int license)
         throws RemoteException
     {
