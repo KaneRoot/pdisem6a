@@ -26,7 +26,7 @@ public class KittyPimpImpl extends UnicastRemoteObject
     private GlobalCarnageHistory achievements;
     private ArrayList<Task> tasks = new ArrayList<Task>();
     private int lastLicense = 0;
-    private HashMap<Integer,Task> assignements = new HashMap<Integer, Task>();
+    private HashMap<Integer,Task> assignments = new HashMap<Integer, Task>();
 
     public KittyPimpImpl(KittyCluster subjects) throws RemoteException
     {
@@ -42,6 +42,8 @@ public class KittyPimpImpl extends UnicastRemoteObject
     {
         int n;
         for(n = 1;n*n< lastLicense*2; n++);
+        if(n < subjects.getNbBlockLines()) n = subjects.getNbBlockLines();
+        if(n < subjects.getNbBlockColumns()) n = subjects.getNbBlockLines();
         return n;
     }
     private void createTasks()
@@ -73,6 +75,14 @@ public class KittyPimpImpl extends UnicastRemoteObject
     }
     public KittyCluster gimmeKittiesToKill(int license) throws RemoteException
     {
+        //récuperation de la tache à faire.
+        if(tasks.size() == 0) throw new RemoteException("There is nothing to kill, please come back later");
+        Task assignment = tasks.get(0);
+        tasks.remove(0);
+        assignments.put(license, assignment);
+
+        //creation du kittyCluster à calculer
+
         return subjects;
     }
     public void resultsOfTheGenocide(KittyHistory results, int license)
