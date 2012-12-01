@@ -43,12 +43,22 @@ public class KittyCluster
 		return copie_cluster;
 	}
 
-    public KittyCluster getSubCopy(int startingBlockLine, int startingBlockColumn, int sizeLine, int sizeColumn)
+    public KittyCluster getCustomSubCopy(int startingBlockLine, int startingBlockColumn, int sizeLine, int sizeColumn)
     {
-        Block[][] result = new Block[sizeLine][sizeColumn];
-        for(int i = 0; i < sizeLine; i++)
+        Block[][] result = new Block[sizeLine+2][sizeColumn+2];
+        for(int i = -1; i < sizeLine+1; i++)
         {
-            System.arraycopy(cluster[startingBlockLine + i], startingBlockColumn, result[i], 0, sizeColumn);
+            for(int j = -1; j < sizeColumn +1; j++)
+            {
+                correctedX = startingBlockLine + i;
+                correctedY = startingBlockLine + j;
+                if(correctedX < 0) correctedX += getNbBlockLines();
+                if(correctedY < 0) correctedY += getNbBlockColumns();
+                if(correctedX >= getNbBlockLines()) correctedX %= getNbBlockLines();
+                if(correctedY >= getNbBlockColumns()) correctedY %= getNbBlockColumns();
+
+                result[i][j]= cluster[correctedX][correctedY];
+            }
         }
         return new KittyCluster(result);
     }
