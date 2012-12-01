@@ -43,6 +43,15 @@ public class KittyCluster
 		return copie_cluster;
 	}
 
+    public KittyCluster getSubCopy(int startingBlockLine, int startingBlockColumn, int sizeLine, int sizeColumn)
+    {
+        Block[][] result = new Block[sizeLine][sizeColumn];
+        for(int i = 0; i < sizeLine; i++)
+        {
+            System.arraycopy(cluster[startingBlockLine + i], startingBlockColumn, result[i], 0, sizeColumn);
+        }
+        return new KittyCluster(result);
+    }
 	public void displayKittyCluster()
 	{
 		for(int i = 0 ; i < this.getNbLines() ; i++)
