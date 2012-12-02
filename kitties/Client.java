@@ -24,6 +24,10 @@ public class Client
 			licenceToKill = datKittyPimp.gimmeLicenseToKill();
 			System.out.println("My licence to kill kitties : " + licenceToKill);
 			cluster = datKittyPimp.gimmeKittiesToKill(licenceToKill);
+			if(cluster == null)
+			{
+				System.out.println("KittyCluster not received");
+			}
 			System.out.println("Computation");
 			compute = new Computation(cluster);
 			compute.kitty_life_game(32);
