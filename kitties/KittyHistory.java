@@ -7,7 +7,7 @@ public class KittyHistory implements java.io.Serializable
 	public void addSnapshot(KittyCluster kc)
 	{
 		if(history == null)
-			setHistorySize(16);
+			setHistorySize(32);
 
 		this.history.add(kc);
 	}
