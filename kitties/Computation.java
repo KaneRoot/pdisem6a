@@ -9,7 +9,7 @@ public class Computation
 		this.kittyhistory = new KittyHistory();
 	}
 
-	public void kitty_life_game() { kitty_life_game(16); }
+	public void kitty_life_game() { kitty_life_game(32); }
 
 	public void kitty_life_game(int nb_tours)
 	{
