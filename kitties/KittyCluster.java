@@ -57,7 +57,7 @@ public class KittyCluster
                 if(correctedX >= getNbBlockLines()) correctedX %= getNbBlockLines();
                 if(correctedY >= getNbBlockColumns()) correctedY %= getNbBlockColumns();
 
-                result[i][j]= cluster[correctedX][correctedY].getBlockCopy();
+                result[i+1][j+1]= cluster[correctedX][correctedY].getBlockCopy();
             }
         }
         return new KittyCluster(result);
