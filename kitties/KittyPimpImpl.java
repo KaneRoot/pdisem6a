@@ -47,8 +47,8 @@ public class KittyPimpImpl extends UnicastRemoteObject
     {
         int n;
         for(n = 1;n*n< lastLicense*2; n++);
-        if(n < subjects.getNbBlockLines()) n = subjects.getNbBlockLines();
-        if(n < subjects.getNbBlockColumns()) n = subjects.getNbBlockLines();
+        if(n > subjects.getNbBlockLines()) n = subjects.getNbBlockLines();
+        if(n > subjects.getNbBlockColumns()) n = subjects.getNbBlockLines();
         return n;
     }
     private void createTasks()
@@ -66,11 +66,11 @@ public class KittyPimpImpl extends UnicastRemoteObject
                 // cas ou c'est pas un multiple.
                 int tmpSizeLine = sizeLine;
                 int tmpSizeColumn = sizeColumn;
-                if(i + sizeLine <= subjects.getNbBlockLines())
+                if(i + sizeLine > subjects.getNbBlockLines())
                 {
                     tmpSizeLine = subjects.getNbBlockLines() - i;
                 }
-                if(j + sizeColumn <= subjects.getNbBlockColumns())
+                if(j + sizeColumn > subjects.getNbBlockColumns())
                 {
                     tmpSizeColumn = subjects.getNbBlockColumns() - j;
                 }
@@ -108,6 +108,8 @@ public class KittyPimpImpl extends UnicastRemoteObject
         //gerer les resultats
         Task assignment = assignments.get(license);
 
+        System.out.println("Assignment: "+ assignment.startX + " " + assignment.sizeX
+            + " " + assignment.startY + " " + assignment.sizeY);
         //pour chacune des 32 frames
         for(int i = 0; i < Block.BLOCK_SIZE ; i++)
         {
@@ -115,7 +117,7 @@ public class KittyPimpImpl extends UnicastRemoteObject
             //pour chacune des lignes
             for(int j = 0; j < assignment.sizeX; j++)
             {
-                System.arraycopy(currentFrameToStore[j+1], 1, genocideResults[i].cluster[
+                System.arraycopy( currentFrameToStore[j+1], 1, genocideResults[i].cluster[
                     assignment.startX + j], assignment.startY, assignment.sizeY);
             }
         }
@@ -124,12 +126,14 @@ public class KittyPimpImpl extends UnicastRemoteObject
         //lancement du calcul des taches suivantes
         if(tasks.size() == 0 && assignments.size() == 0)
         {
+            System.out.println("everything has been calculated !, lets create the new batch");
             for(int i = 0; i < Block.BLOCK_SIZE ; i++)
             {
                achievements.addNextClick(genocideResults[i]); 
             }
             subjects = genocideResults[genocideResults.length -1].getCopy();
             createTasks();
+            System.out.println("endoftheshit");
         }
     }
 }

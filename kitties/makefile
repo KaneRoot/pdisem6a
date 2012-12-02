@@ -1,7 +1,7 @@
 CARNAGE_ADDRESS = "localhost"
 PORT = "9001"
 # it means N * N * block_size (32 * 32 kitties presently)
-CARNAGE_FIELD_SIZE = "6"
+CARNAGE_FIELD_SIZE = "60"
 
 all : compilation
 

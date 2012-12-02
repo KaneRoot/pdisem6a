@@ -23,16 +23,19 @@ public class Client
 			datKittyPimp = (KittyPimp) Naming.lookup("rmi://"+args[0]+":"+args[1]+"/KittyPimp") ;
 			licenceToKill = datKittyPimp.gimmeLicenseToKill();
 			System.out.println("My licence to kill kitties : " + licenceToKill);
-			cluster = datKittyPimp.gimmeKittiesToKill(licenceToKill);
-			if(cluster == null)
-			{
-				System.out.println("KittyCluster not received");
-			}
-			System.out.println("Computation");
-			compute = new Computation(cluster);
-			compute.kitty_life_game(32);
-			System.out.println("Send result of the genocide");
-			datKittyPimp.resultsOfTheGenocide( compute.getHistory(), licenceToKill);
+			//while(true)
+            //{
+                cluster = datKittyPimp.gimmeKittiesToKill(licenceToKill);
+                if(cluster == null)
+                {
+                    System.out.println("KittyCluster not received");
+                }
+                System.out.println("Computation");
+                compute = new Computation(cluster);
+                compute.kitty_life_game(32);
+                System.out.println("Send result of the genocide");
+                datKittyPimp.resultsOfTheGenocide( compute.getHistory(), licenceToKill);
+            //}
 		}
 		catch (Exception e)
 		{
