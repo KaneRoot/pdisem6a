@@ -78,7 +78,7 @@ public class KittyPimpImpl extends UnicastRemoteObject
     {
         KittyCluster victims = null;
         //récuperation de la tache à faire.
-        if(tasks.size() == 0)
+        if(tasks.size() != 0)
         {
             Task assignment = tasks.get(0);
             tasks.remove(0);
