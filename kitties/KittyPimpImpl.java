@@ -33,6 +33,10 @@ public class KittyPimpImpl extends UnicastRemoteObject
         this.subjects = subjects;
         achievements = GlobalCarnageHistory.getInstance();
         createTasks();
+        for(int i = 0; i < Block.BLOCK_SIZE; i++)
+        {
+            genocideResults[i] = subjects.getCopy();
+        }
     }
     public int gimmeLicenseToKill() throws RemoteException
     {
@@ -101,5 +105,31 @@ public class KittyPimpImpl extends UnicastRemoteObject
     public void resultsOfTheGenocide(KittyHistory results, int license)
         throws RemoteException
     {
+        //gerer les resultats
+        Task assignment = assignments.get(license);
+
+        //pour chacune des 32 frames
+        for(int i = 0; i < Block.BLOCK_SIZE ; i++)
+        {
+            Block[][] currentFrameToStore = results.getHistory().get(i).getCopyCluster();
+            //pour chacune des lignes
+            for(int j = 0; j < assignment.sizeX; j++)
+            {
+                System.arraycopy(currentFrameToStore[j+1], 1, genocideResults[i].cluster[
+                    assignment.startX + j], assignment.startY, assignment.sizeY);
+            }
+        }
+        assignments.remove(license);
+
+        //lancement du calcul des taches suivantes
+        if(tasks.size() == 0 && assignments.size() == 0)
+        {
+            for(int i = 0; i < Block.BLOCK_SIZE ; i++)
+            {
+               achievements.addNextClick(genocideResults[i]); 
+            }
+            subjects = genocideResults[genocideResults.length -1].getCopy();
+            createTasks();
+        }
     }
 }

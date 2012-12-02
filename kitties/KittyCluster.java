@@ -1,6 +1,10 @@
 public class KittyCluster implements java.io.Serializable
 {
-	Block[][] cluster;
+    // made it public because I wanna finish this And I'm LAZY AS FUCK.
+    // fuck blackboxing 
+    // throwItAway coding style FTW!
+    // stupid assignments
+	public Block[][] cluster;
 	public KittyCluster(Block[][] blocks) { this.cluster = blocks; }
 
 	public boolean isKittyAlive(int line, int column)
