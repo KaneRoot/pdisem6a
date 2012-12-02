@@ -1,4 +1,4 @@
-public class Block
+public class Block implements java.io.Serializable
 {
 	public static int BLOCK_SIZE = 32;
 	// tableau de 32 * 32 bits 

@@ -1,4 +1,4 @@
-public class KittyCluster 
+public class KittyCluster implements java.io.Serializable
 {
 	Block[][] cluster;
 	public KittyCluster(Block[][] blocks) { this.cluster = blocks; }

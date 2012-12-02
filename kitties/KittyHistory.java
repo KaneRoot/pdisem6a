@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class KittyHistory
+public class KittyHistory implements java.io.Serializable 
 {
 	private ArrayList<KittyCluster> history = null;
 
