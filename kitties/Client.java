@@ -30,7 +30,7 @@ public class Client
                 while(cluster == null)
                 {
 					System.out.println("KittyCluster not received - wait");
-					try { java.lang.Thread.sleep(TIME_BETWEEN_FRAMES); } catch(Exception e) {}
+					try { java.lang.Thread.sleep(TIME_TO_WAIT); } catch(Exception e) {}
 					cluster = datKittyPimp.gimmeKittiesToKill(licenceToKill);
                 }
                 System.out.println("Computation");
