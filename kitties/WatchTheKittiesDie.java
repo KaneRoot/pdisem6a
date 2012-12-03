@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class WatchTheKittiesDie
 {
-	public static int TIME_BETWEEN_FRAMES = 1000;
+	public static int TIME_BETWEEN_FRAMES = 300;
 
 	private JFrame jf = null;
 	private Vue v = null;
@@ -42,8 +42,8 @@ public class WatchTheKittiesDie
 		// taille = nombre de blocks (KittyCluster = carré) * 
 		// nb colonnes (ou lignes, un bloc = un carré aussi) * 
 		// taille voulue pour un chatton à l'affichage
-		jf.setSize(NB_BLOCKS * Block.BLOCK_SIZE * Vue.TAILLE_BLOCS + 500, 
-				NB_BLOCKS * Block.BLOCK_SIZE * Vue.TAILLE_BLOCS + 30);
+		jf.setSize(NB_BLOCKS * Block.BLOCK_SIZE * Vue.TAILLE_BLOCS, 
+				NB_BLOCKS * Block.BLOCK_SIZE * Vue.TAILLE_BLOCS);
 
 		jf.setLocationRelativeTo(null); // set the display to the center of the screen
 		jf.setVisible(true);

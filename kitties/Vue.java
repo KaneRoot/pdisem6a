@@ -23,7 +23,7 @@ public class Vue extends JPanel
 		//g.setColor(new Color(140,140,140));
 		//g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-		if(kitties != null)
+		if(this.kitties != null)
 		{
 			int x = 0, y = 0;
 

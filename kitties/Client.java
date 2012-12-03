@@ -4,6 +4,7 @@ import java.net.* ;
 
 public class Client
 {
+	public static int TOURS = 32;
 	public static int TIME_TO_WAIT = 1000;
 	public static void main(String[] args)
 	{
@@ -23,19 +24,21 @@ public class Client
 			datKittyPimp = (KittyPimp) Naming.lookup("rmi://"+args[0]+":"+args[1]+"/KittyPimp") ;
 			licenceToKill = datKittyPimp.gimmeLicenseToKill();
 			System.out.println("My licence to kill kitties : " + licenceToKill);
-			//while(true)
-            //{
+			while(true)
+            {
                 cluster = datKittyPimp.gimmeKittiesToKill(licenceToKill);
-                if(cluster == null)
+                while(cluster == null)
                 {
-                    System.out.println("KittyCluster not received");
+					System.out.println("KittyCluster not received - wait");
+					try { java.lang.Thread.sleep(TIME_BETWEEN_FRAMES); } catch(Exception e) {}
+					cluster = datKittyPimp.gimmeKittiesToKill(licenceToKill);
                 }
                 System.out.println("Computation");
                 compute = new Computation(cluster);
-                compute.kitty_life_game(32);
+                compute.kitty_life_game(TOURS);
                 System.out.println("Send result of the genocide");
                 datKittyPimp.resultsOfTheGenocide( compute.getHistory(), licenceToKill);
-            //}
+            }
 		}
 		catch (Exception e)
 		{

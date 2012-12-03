@@ -1,19 +1,20 @@
 CARNAGE_ADDRESS = "localhost"
 PORT = "9001"
 # it means N * N * block_size (32 * 32 kitties presently)
-CARNAGE_FIELD_SIZE = "60"
+CARNAGE_FIELD_SIZE = "6"
 
-all : compilation
+all : compilation 
+	@-echo -e "Now :\nmake lancer_serveur\nmake lancer_client\nmake watch_kitties"
 
-lancer_serveur : destroy compilation
+lancer_serveur : destroy
 	rmiregistry $(PORT) &
 	@sleep 1
 	java Serveur $(CARNAGE_FIELD_SIZE) $(CARNAGE_ADDRESS) $(PORT)
 
-lancer_client : compilation
+lancer_client : 
 	java Client $(CARNAGE_ADDRESS) $(PORT)
 
-watch_kitties : compilation
+watch_kitties :
 	java WatchTheKittiesDie $(CARNAGE_FIELD_SIZE) $(CARNAGE_ADDRESS) $(PORT)
 
 compilation :
