@@ -54,20 +54,20 @@
 \pagestyle{fancy} % All pages have headers and footers
 \fancyhead{} % Blank out the default header
 \fancyfoot{} % Blank out the default footer
-\fancyhead[C]{Programmation Distribuée $\bullet$ decembre 2012} % Custom header text
+\fancyhead[C]{Programmation Distribuée $\bullet$ décembre 2012} % Custom header text
 \fancyfoot[RO,LE]{\thepage} % Custom footer text
 
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
 %----------------------------------------------------------------------------------------
 
-\title{\vspace{-15mm}\fontsize{24pt}{10pt}\selectfont\textbf{Programmation Distribuée}} % Article title
+\title{\vspace{-15mm}\fontsize{24pt}{10pt}\selectfont\textbf{Programmation Distribuée}}
 
 \author{
 \large
-\textsc{Philippe PITTOLI - Claude HEMBERGER}\\[2mm] % Your name
-\normalsize University of Strasbourg \\ % Your institution
-\normalsize \href{mailto:philippe.pittoli@etu.unistra.fr}{nous contacter} % Your email address
+\textsc{Philippe PITTOLI - Claude HEMBERGER}\\[2mm]
+\normalsize Université de Strasbourg \\ 
+\normalsize \href{mailto:philippe.pittoli@etu.unistra.fr}{nous contacter}
 \vspace{-5mm}
 }
 \date{}
@@ -94,7 +94,29 @@ Ainsi, à la place de faire mourir des cellules, nous préférons tuer des petit
 Comme nous avons tout de suite changé de thème, aucune cellule n'a du mourir pour ce projet.
 
 \section{Implémentation du projet}
-
+Nous avons découpé le projet en plusieurs parties distinctes : 
+\begin{itemize}
+	\item Le serveur 
+		\begin{itemize}
+			\item il crée un « KittyCluster »\protect\footnote{
+					KittyCluster : un ensemble quelconque de blocs de 32*32 cellules (ah non, chatons !).
+				} de taille variable\protect\footnote{
+					Pour faire varier la taille du KittyCluster principal, 
+						 voir le champ « CARNAGE\_FIELD\_SIZE » dans le makefile.
+				} ;
+			\item partage ce KittyCluster en plusieurs à envoyer aux clients ;
+			\item récupère le résultat sous la forme de « KittyHistory » ;
+			\item réassemble le tout pour former des snapshots cohérents sur plusieurs tours ;
+			\item peut envoyer un snapshot d'un instant T du KittyCluster principal ;
+		\end{itemize}
+	\item Le client
+		\begin{itemize}
+			\item va chercher un permis pour tuer des chatons ;
+			\item fait des calculs sur le KittyCluster envoyé  
+			\item renvoie un historique (KittyHistory) ;
+		\end{itemize}
+	\item WatchTheKittiesDie : c'est le visualiseur, qui regarde l'évolution du jeu.
+\end{itemize}
 
 \section{Effectuer des tests}
 Les 3 choses à faire pour lancer le tout (chacun dans un shell distinct) :
