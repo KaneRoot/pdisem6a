@@ -105,7 +105,9 @@ Nous avons découpé le projet en plusieurs parties distinctes :
 						 voir le champ « CARNAGE\_FIELD\_SIZE » dans le makefile.
 				} ;
 			\item partage ce KittyCluster en plusieurs à envoyer aux clients ;
-			\item récupère le résultat sous la forme de « KittyHistory » ;
+			\item récupère le résultat sous la forme de « KittyHistory »\protect\footnote{
+					KittyHistory : Permet de conserver les résultats de calcul sur X tours.
+				}	;
 			\item réassemble le tout pour former des snapshots cohérents sur plusieurs tours ;
 			\item peut envoyer un snapshot d'un instant T du KittyCluster principal ;
 		\end{itemize}
