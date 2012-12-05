@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class WatchTheKittiesDie
 {
-	public static int TIME_BETWEEN_FRAMES = 300;
+	public static int TIME_BETWEEN_FRAMES = 500;
 
 	private JFrame jf = null;
 	private Vue v = null;

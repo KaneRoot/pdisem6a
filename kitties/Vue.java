@@ -34,7 +34,7 @@ public class Vue extends JPanel
 					if(kitties.isKittyAlive(i, j))
 						g.setColor(new Color(0,255,0));
 					else
-						g.setColor(new Color(255,0,0));
+						g.setColor(new Color(204,51,204));
 					g.fillRect(x, y, x+TAILLE_BLOCS, y+TAILLE_BLOCS);
 					x += TAILLE_BLOCS;
 				}
