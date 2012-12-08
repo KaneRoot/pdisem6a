@@ -27,6 +27,7 @@ public class KittyPimpImpl extends UnicastRemoteObject
     private ArrayList<Task> tasks = new ArrayList<Task>();
     private int lastLicense = 0;
     private HashMap<Integer,Task> assignments = new HashMap<Integer, Task>();
+    Timer someoneProbablyHungUp = new Timer();
 
     public KittyPimpImpl(KittyCluster subjects) throws RemoteException
     {
@@ -37,6 +38,16 @@ public class KittyPimpImpl extends UnicastRemoteObject
         {
             genocideResults[i] = subjects.getCopy();
         }
+        someoneProbablyHungUp.schedule(new TimerTask(){
+            public void run()
+            {
+                for(Task t: assignments.values())
+                {
+                    tasks.add(t);
+                }
+                assignments.clear();
+            }
+        },10000);
     }
     public int gimmeLicenseToKill() throws RemoteException
     {
@@ -74,7 +85,7 @@ public class KittyPimpImpl extends UnicastRemoteObject
                 {
                     tmpSizeColumn = subjects.getNbBlockColumns() - j;
                 }
-                tasks.add(new Task(i, j, tmpSizeColumn, tmpSizeColumn));
+                tasks.add(new Task(i, j, tmpSizeLine, tmpSizeColumn));
             }
         }
     }
@@ -92,6 +103,20 @@ public class KittyPimpImpl extends UnicastRemoteObject
                 assignment.sizeX, assignment.sizeY);
             
         }
+        else
+        {
+
+            someoneProbablyHungUp.schedule(new TimerTask(){
+                    public void run()
+                    {
+                    for(Task t: assignments.values())
+                    {
+                    tasks.add(t);
+                    }
+                    assignments.clear();
+                    }
+                    },10000);  
+        }
 
         return victims;
     }
@@ -105,24 +130,28 @@ public class KittyPimpImpl extends UnicastRemoteObject
     public void resultsOfTheGenocide(KittyHistory results, int license)
         throws RemoteException
     {
+        someoneProbablyHungUp.cancel();
+        someoneProbablyHungUp = new Timer();
         //gerer les resultats
         Task assignment = assignments.get(license);
 
-        System.out.println("Assignment: "+ assignment.startX + " " + assignment.sizeX
-            + " " + assignment.startY + " " + assignment.sizeY);
-        //pour chacune des 32 frames
-        for(int i = 0; i < Block.BLOCK_SIZE ; i++)
+        if(assignment != null)
         {
-            Block[][] currentFrameToStore = results.getHistory().get(i).getCopyCluster();
-            //pour chacune des lignes
-            for(int j = 0; j < assignment.sizeX; j++)
+            System.out.println("Assignment: "+ assignment.startX + " " + assignment.sizeX
+                    + " " + assignment.startY + " " + assignment.sizeY);
+            //pour chacune des 32 frames
+            for(int i = 0; i < Block.BLOCK_SIZE ; i++)
             {
-                System.arraycopy( currentFrameToStore[j+1], 1, genocideResults[i].cluster[
-                    assignment.startX + j], assignment.startY, assignment.sizeY);
+                Block[][] currentFrameToStore = results.getHistory().get(i).getCopyCluster();
+                //pour chacune des lignes
+                for(int j = 0; j < assignment.sizeX; j++)
+                {
+                    System.arraycopy( currentFrameToStore[j+1], 1, genocideResults[i].cluster[
+                            assignment.startX + j], assignment.startY, assignment.sizeY);
+                }
             }
+            assignments.remove(license);
         }
-        assignments.remove(license);
-
         //lancement du calcul des taches suivantes
         if(tasks.size() == 0 && assignments.size() == 0)
         {
