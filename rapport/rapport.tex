@@ -94,6 +94,7 @@ Ainsi, à la place de faire mourir des cellules, nous préférons tuer des petit
 Comme nous avons tout de suite changé de thème, aucune cellule n'a du mourir pour ce projet.
 
 \section{Implémentation du projet}
+\subsection{Découpage du projet}
 Nous avons découpé le projet en plusieurs parties distinctes : 
 \begin{itemize}
 	\item Le serveur 
@@ -119,6 +120,27 @@ Nous avons découpé le projet en plusieurs parties distinctes :
 		\end{itemize}
 	\item WatchTheKittiesDie : c'est le visualiseur, qui regarde l'évolution du jeu.
 \end{itemize}
+\subsection{Le déroulement normal}
+Tout d'abord, nous devons lancer le serveur qui se charge de créer la zone d'une certaine taille via des paramètres qu'on lui passe\protect\footnote{
+	Tout est fait automatiquement via notre makefile.
+} puis il se met en attente de clients.
+À chaque client qui se connecte, le serveur fait un calcul pour savoir comment il faut découper les tâches à attribuer.
+
+Lorsqu'un client se connecte, il demande un numéro de client (une licence pour tuer dans notre jargon), puis il demande des zones à calculer (un « KittyCluster »).
+Le serveur lui envoie donc une zone de taille variable suivant le nombre de clients et la taille initiale de la zone globale.
+
+Une fois le calcul terminé (qui se fait dans la classe « Computation » ), le client renvoie un historique de ce qu'il a calculé (« KittyHistory ») via la méthode « resultsOfTheGenocide ».
+De là, le serveur est en charge de réassembler la zone calculée sur $x$ générations avec le reste de la zone en construction.
+
+\subsection{Remarques}
+Notre implémntation permet une utilisation à grande échelle (plusieurs dizaines de clients).
+Du fait que les clients calculent 32 tours à l'avance\protect\footnote{
+	Nous pourrions même éventuellement changer cette valeur pour accepter n'importe-quel multiple de 32.
+}, on limite l'utilisation du réseau qui nous semblait être le point le plus critique.
+De ce fait, ajouter des clients n'implique pas une consommation excessive du réseau.
+
+Nous n'avons pas joué sur les threads pour faire en sorte qu'un client calcule $x$ parties de zone à afficher.
+Cependant, nous avons ajouté une possibilité de lancer $x$ clients suivant le nombre de cœurs disponibles sur un système de type unix via un simple script.
 
 \section{Effectuer des tests}
 Les 3 choses à faire pour lancer le tout (chacun dans un shell distinct) :
