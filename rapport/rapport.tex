@@ -132,7 +132,14 @@ Le serveur lui envoie donc une zone de taille variable suivant le nombre de clie
 Une fois le calcul terminé (qui se fait dans la classe « Computation » ), le client renvoie un historique de ce qu'il a calculé (« KittyHistory ») via la méthode « resultsOfTheGenocide ».
 De là, le serveur est en charge de réassembler la zone calculée sur $x$ générations avec le reste de la zone en construction.
 
-\subsection{Remarques}
+Le client continue à demander des zones à calculer.
+
+Pour visualiser la zone, nous n'utilisons pas directement le serveur, mais la classe « WatchTheKittiesDie ».
+
+\subsection{Remarques et choix techniques}
+Nous utilisons RMI, car nous avions déjà vu ce système lorsque nous avons commencé le développement du projet.
+Nous savons ce système gourmand en ressources réseau, d'où notre implémentation nous permettant $x$ générations sans utilisation du réseau.
+
 Notre implémntation permet une utilisation à grande échelle (plusieurs dizaines de clients).
 Du fait que les clients calculent 32 tours à l'avance\protect\footnote{
 	Nous pourrions même éventuellement changer cette valeur pour accepter n'importe-quel multiple de 32.
@@ -141,6 +148,10 @@ De ce fait, ajouter des clients n'implique pas une consommation excessive du ré
 
 Nous n'avons pas joué sur les threads pour faire en sorte qu'un client calcule $x$ parties de zone à afficher.
 Cependant, nous avons ajouté une possibilité de lancer $x$ clients suivant le nombre de cœurs disponibles sur un système de type unix via un simple script.
+
+Nous avons séparé la visualisation de la zone du serveur parce que nous pensons que cela peut représenter une somme de calculs assez conséquente et le serveur a déjà beaucoup de calculs à faire. 
+Lui rajouter une couche de Swing, avec une grande zone à afficher, l'aurait rendu moins performant.
+L'affichage se fait donc (potentiellement) un autre ordinateur.
 
 \section{Effectuer des tests}
 Les 3 choses à faire pour lancer le tout (chacun dans un shell distinct) :
@@ -151,9 +162,13 @@ Les 3 choses à faire pour lancer le tout (chacun dans un shell distinct) :
 \end{itemize}
 Et pour kill rmiregistry :
 	make destroy
-%------------------------------------------------
 
+\section{Répartition du travail}
+Concernant la partie serveur, client, visualisation, calcul du jeu de la vie, makefile : Philippe PITTOLI.
+Pour le partage des tâches entre clients, la partie RMI et la gestion de déconnexion de clients : Claude HEMBERGER.
 
-%\end{multicols}
+Nous avons fait ensemble la gestion d'un « bloc » qui représente 32*32 cellules (la partie avec des calculs binaires sur des entiers).
+
+Globalement, nous avons travaillé tous les deux sur chaque partie du projet (relecture du code, corrections diverses).
 
 \end{document}
