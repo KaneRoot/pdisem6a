@@ -48,7 +48,7 @@ implements KittyPimp
 
 	public void run()
 	{
-		System.out.println("Client don't sent what I'm looking for !");
+		System.out.println("Clients aren't sending what I'm looking for !");
 		for(Task t: assignments.values())
 		{
 			tasks.add(t);
@@ -163,14 +163,14 @@ implements KittyPimp
 			//lancement du calcul des taches suivantes
 			if(tasks.size() == 0 && assignments.size() == 0)
 			{
-				System.out.println("everything has been calculated !, lets create the new batch");
+				System.out.println("Everything has been calculated ! Let's create the new batch !");
 				for(int i = 0; i < Block.BLOCK_SIZE ; i++)
 				{
 					achievements.addNextClick(genocideResults[i]); 
 				}
 				subjects = genocideResults[genocideResults.length -1].getCopy();
 				createTasks();
-				System.out.println("endoftheshit");
+				System.out.println("end of the shit");
 			}
 		}
 }

@@ -1,3 +1,4 @@
+#CARNAGE_ADDRESS = "192.168.0.3"
 CARNAGE_ADDRESS = "localhost"
 PORT = "9001"
 # it means N * N * block_size (32 * 32 kitties presently)
