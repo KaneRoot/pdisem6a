@@ -140,43 +140,43 @@ Pour visualiser la zone, nous n'utilisons pas directement le serveur, mais la cl
 Nous utilisons RMI, car nous avions déjà vu ce système lorsque nous avons commencé le développement du projet.
 Nous savons ce système gourmand en ressources réseau, d'où notre implémentation nous permettant $x$ générations sans utilisation du réseau.
 
-Notre implémntation permet une utilisation à grande échelle (plusieurs dizaines de clients).
-Du fait que les clients calculent 32 tours à l'avance
-, on limite l'utilisation du réseau qui nous semblait être le point le plus critique.
+Notre implémentation permet une utilisation à grande échelle (plusieurs dizaines de clients).
+Du fait que les clients calculent 32 tours à l'avance, on limite l'utilisation du réseau qui nous semblait être le point le plus critique.
 De ce fait, ajouter des clients n'implique pas une consommation excessive du réseau.
-Il n'y a donc pas d'attente réseau ou d'interruption, le calcul de grande quantités de données peut se faire en une seule fois.
+Il n'y a donc pas d'attente réseau ou d'interruption, le calcul de grandes quantités de données peut se faire en une seule fois.
 
-Ceci implique une redondance dans les calculs. Cependant, plus les kittyclusters à calculer par le client sont grand, et moins la redondance impactera sur la performance globale.
-Nous ne trouvons pas celà problêmatique, car pour profiter et justifier le besoin d'une approche distribué, on peut supposer le champ de bataille très grand.
+Ceci implique une redondance dans les calculs.
+Cependant, plus les kittyclusters à calculer par le client sont grands, et moins la redondance impactera sur la performance globale.
+Nous ne trouvons pas cela problématique, car pour profiter et justifier le besoin d'une approche distribuée, on peut supposer le champ de bataille très grand.
 
 Nous n'avons pas joué sur les threads pour faire en sorte qu'un client calcule $x$ parties de zone à afficher.
 Il suffit de lancer le client plusieurs fois sur la même machine.
-D'ailleurs, nous avons ajouter un script permettant de faire ainsi sur les machines linux à titre d'exemple.
+D'ailleurs, nous avons ajouter un script permettant de faire ainsi sur les machines Linux à titre d'exemple.
 
 Nous avons séparé la visualisation de la zone du serveur parce que nous pensons que cela peut représenter une somme de calculs assez conséquente et le serveur a déjà beaucoup de calculs à faire. 
 Lui rajouter une couche de Swing, avec une grande zone à afficher, l'aurait rendu moins performant.
 L'affichage se fait donc (potentiellement) un autre ordinateur.
 
 \section{Effectuer des tests}
-Les 3 choses à faire pour lancer le tout (chacun dans un shell distinct, après avoir compiler le projet avec make) :
+Les 3 choses à faire pour lancer le tout (chacun dans un shell distinct, après avoir compilé le projet avec make) :
 \begin{description}
 	\item make lancer\_serveur
-	\item make lancer\_client
+	\item make lancer\_client ou make lancer\_x\_clients
 	\item make watch\_kitties
 \end{description}
 Et pour kill rmiregistry :
 	make destroy
 
 \section{Outils utilisés}
-Dans notre quête envers la completion du projet ainsi que l'extermination de la race féline, nous avons fait usage de divers armes et équipements:
+Dans notre quête envers la complétion du projet ainsi que l'extermination de la race féline, nous avons fait usage de divers armes et équipements:
 \begin{itemize}
-    \item[Vim] À la manière de la potion magique d'Asterix, ce breuvage a démultiplié notre productivité, et nous a permis d'éditer et corriger notre code source en un tour de main.
-    \item[Git] Compléter une quête en binôme n'a jamais été facile. Surtout dans le cas d'une relation à distance, comme ce fut le cas dans ce projet. Mais à l'aide de git, et de sa nature
-        décentralisé, chacun de nous a put travailler dans son coin, tout en travaillons ensemble.
-    \item[Java] Cet arme est bel-et-bien une épée à double tranchant. Elle est effectivement utilisable par nimporte qui, sur nimporte quelle plateforme. Cependant, sa conception lourde et
-        compliqué rende cette épée fatiguante et frustrante à utiliser
-    \item[LaTeX] Après en avoir finit avec notre génocide, nous avons décidé d'engager ce ménestrel pour compter nos fabuleuses péripéties et douteuses décisions.
-        Ses qualités principales sont sa propreté et son proffessionnalisme, qualités rares de nos jours.
+    \item Vim : à la manière de la potion magique d'Asterix, ce breuvage a démultiplié notre productivité, et nous a permis d'éditer et corriger notre code source en un tour de main.
+    \item Git : Compléter une quête en binôme n'a jamais été facile. Surtout dans le cas d'une relation à distance, comme ce fut le cas dans ce projet. 
+	Mais à l'aide de git, et de sa nature décentralisée, chacun de nous a put travailler dans son coin, tout en travaillons ensemble.
+    \item Java : cette arme est bel et bien une épée à double tranchant. Elle est effectivement utilisable par n'importe qui, sur n'importe quelle plateforme. Cependant, sa conception lourde et
+        compliqué rende cette épée fatigante et frustrante à utiliser
+    \item \LaTeX : après en avoir finit avec notre génocide, nous avons décidé d'engager ce ménestrel pour compter nos fabuleuses péripéties et douteuses décisions.
+        Ses qualités principales sont sa propreté et son professionnalisme, qualités rares de nos jours.
 \end{itemize}
 
 \section{Répartition du travail}
