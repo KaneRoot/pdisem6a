@@ -15,6 +15,9 @@ lancer_serveur : destroy
 lancer_client : 
 	java Client $(CARNAGE_ADDRESS) $(PORT)
 
+lancer_x_client : 
+	./runXClient.sh $(CARNAGE_ADDRESS) $(PORT)
+
 watch_kitties :
 	java WatchTheKittiesDie $(CARNAGE_FIELD_SIZE) $(CARNAGE_ADDRESS) $(PORT)
 
