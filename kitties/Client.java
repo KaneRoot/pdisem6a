@@ -33,12 +33,16 @@ public class Client
 					try { java.lang.Thread.sleep(TIME_TO_WAIT); } catch(Exception e) {}
 					cluster = datKittyPimp.gimmeKittiesToKill(licenceToKill);
                 }
-                System.out.println("Computation");
+                System.out.println("Computation \\o/");
                 compute = new Computation(cluster);
                 compute.kitty_life_game(TOURS);
-                System.out.println("Send result of the genocide");
+                System.out.println("Send result of the genocide.");
                 datKittyPimp.resultsOfTheGenocide( compute.getHistory(), licenceToKill);
             }
+		}
+		catch (RemoteException e)
+		{
+			System.out.println("The server has probably been killed.");
 		}
 		catch (Exception e)
 		{

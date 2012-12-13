@@ -87,24 +87,25 @@
 %\begin{multicols}{1} % Two-column layout throughout the main article text
 
 \section{Introduction}
-Nous avons estimer que des cellules qui meurent était un sujet trop triste pour ce projet.
-C'est pourquoi nous avons décidé de modifier le thème en quelque chose de plus joyeux.
+Nous avons estimé que des cellules qui meurent était un sujet trop triste pour ce projet.
+C'est pourquoi nous avons décidé de modifier le thème en quelque chose de plus joyeux et inutile.
 Ainsi, à la place de faire mourir des cellules, nous préférons tuer des petits chatons.
 
-Comme nous avons tout de suite changé de thème, aucune cellule n'a du mourir pour ce projet.
+Comme nous avons changé de thème en tout début, aucune cellule n'a dû mourir pour ce projet.
 
 \section{Implémentation du projet}
+\subsection{Découpage du projet}
 Nous avons découpé le projet en plusieurs parties distinctes : 
 \begin{itemize}
 	\item Le serveur 
 		\begin{itemize}
-			\item il crée un « KittyCluster »\protect\footnote{
+			\item crée un « KittyCluster »\protect\footnote{
 					KittyCluster : un ensemble quelconque de blocs de 32*32 cellules (ah non, chatons !).
 				} de taille variable\protect\footnote{
 					Pour faire varier la taille du KittyCluster principal, 
 						 voir le champ « CARNAGE\_FIELD\_SIZE » dans le makefile.
 				} ;
-			\item partage ce KittyCluster en plusieurs à envoyer aux clients ;
+			\item partage ce KittyCluster en plusieurs plus petits à envoyer aux clients ;
 			\item récupère le résultat sous la forme de « KittyHistory »\protect\footnote{
 					KittyHistory : Permet de conserver les résultats de calcul sur X tours.
 				}	;
@@ -114,24 +115,82 @@ Nous avons découpé le projet en plusieurs parties distinctes :
 	\item Le client
 		\begin{itemize}
 			\item va chercher un permis pour tuer des chatons ;
-			\item fait des calculs sur le KittyCluster envoyé  
+			\item fait des calculs sur le KittyCluster envoyé ;
 			\item renvoie un historique (KittyHistory) ;
 		\end{itemize}
 	\item WatchTheKittiesDie : c'est le visualiseur, qui regarde l'évolution du jeu.
 \end{itemize}
+\subsection{Le déroulement normal}
+Tout d'abord, nous devons lancer le serveur qui se charge de créer la zone d'une certaine taille via des paramètres qu'on lui passe\protect\footnote{
+Tout est fait automatiquement via notre makefile.
+} puis il se met en attente de clients.
+À chaque client qui se connecte, le serveur fait un calcul pour savoir comment il faut découper les tâches à attribuer.
+
+Lorsqu'un client se connecte, il demande un numéro de client (une licence pour tuer dans notre jargon), puis il demande des zones à calculer (un « KittyCluster »).
+Le serveur lui envoie donc une zone de taille variable suivant le nombre de clients et la taille initiale de la zone globale.
+
+Une fois le calcul terminé (qui se fait dans la classe « Computation » ), le client renvoie un historique de ce qu'il a calculé (« KittyHistory ») via la méthode « resultsOfTheGenocide ».
+De là, le serveur est en charge de réassembler la zone calculée sur $x$ générations avec le reste de la zone en construction.
+
+Le client continue à demander des zones à calculer.
+
+Pour visualiser la zone, nous n'utilisons pas directement le serveur, mais la classe « WatchTheKittiesDie ».
+
+\subsection{Remarques et choix techniques}
+Nous utilisons RMI, car nous avions déjà vu ce système lorsque nous avons commencé le développement du projet.
+Nous savons ce système gourmand en ressources réseau, d'où notre implémentation nous permettant $x$ générations sans utilisation du réseau.
+
+Notre implémentation permet une utilisation à grande échelle (plusieurs dizaines de clients).
+Du fait que les clients calculent 32 tours à l'avance, on limite l'utilisation du réseau qui nous semblait être le point le plus critique.
+De ce fait, ajouter des clients n'implique pas une consommation excessive du réseau.
+Il n'y a donc pas d'attente réseau ou d'interruption, le calcul de grandes quantités de données peut se faire en une seule fois.
+
+Ceci implique une redondance dans les calculs.
+Cependant, plus les kittyclusters à calculer par le client sont grands, et moins la redondance impactera sur la performance globale.
+Nous ne trouvons pas cela problématique, car pour profiter et justifier le besoin d'une approche distribuée, on peut supposer le champ de bataille très grand.
+
+Nous n'avons pas joué sur les threads pour faire en sorte qu'un client calcule $x$ parties de zone à afficher.
+Il suffit de lancer le client plusieurs fois sur la même machine.
+D'ailleurs, nous avons ajouté un script permettant de faire ainsi sur les machines Linux à titre d'exemple.
+
+Nous avons séparé la visualisation de la zone du serveur parce que nous pensons que cela peut représenter une somme de calculs assez conséquente et le serveur a déjà beaucoup de calculs à faire. 
+Lui rajouter une couche de Swing, avec une grande zone à afficher, l'aurait rendu moins performant.
+L'affichage se fait donc (potentiellement) sur un autre ordinateur.
 
 \section{Effectuer des tests}
-Les 3 choses à faire pour lancer le tout (chacun dans un shell distinct) :
-\begin{itemize}
+Les 3 choses à faire pour lancer le tout (chacun dans un shell distinct, après avoir compilé le projet avec make) :
+\begin{description}
 	\item make lancer\_serveur
-	\item make lancer\_client
+	\item make lancer\_client ou make lancer\_x\_clients
 	\item make watch\_kitties
-\end{itemize}
+\end{description}
 Et pour kill rmiregistry :
 	make destroy
-%------------------------------------------------
 
+\section{Outils utilisés}
+Dans notre quête envers la complétion du projet ainsi que l'extermination de la race féline, nous avons fait usage de divers armes et équipements:
+\begin{itemize}
+    \item Vim : à la manière de la potion magique d'Astérix, ce breuvage a démultiplié notre productivité, et nous a permis d'éditer et corriger notre code source en un tour de main.
+    \item Git : compléter une quête en binôme n'a jamais été facile. 
+	Surtout dans le cas d'une relation à distance, comme ce fut le cas dans ce projet. 
+	Mais à l'aide de git, et de sa nature décentralisée, chacun de nous a pu travailler dans son coin, tout en travaillant ensemble.
+    \item Java : cette arme est bel et bien une épée à double tranchant. 
+	Elle est effectivement utilisable par n'importe qui, sur n'importe quelle plateforme. 
+	Cependant, sa conception lourde et compliquée rend cette épée fatigante et frustrante à utiliser.
+    \item \LaTeX : après en avoir fini avec notre génocide, nous avons décidé d'engager ce ménestrel pour compter nos fabuleuses péripéties et douteuses décisions.
+        Ses qualités principales sont sa propreté et son professionnalisme, qualités rares de nos jours.
+\end{itemize}
 
-%\end{multicols}
+\section{Répartition du travail}
+Concernant la partie serveur, client, visualisation, calcul du jeu de la vie, makefile : Philippe PITTOLI.
+Pour le partage des tâches entre clients, la partie RMI et la gestion de déconnexion de clients : Claude HEMBERGER.
+
+Nous avons fait ensemble la gestion d'un « bloc » qui représente 32*32 cellules (la partie avec des calculs binaires sur des entiers).
+
+Globalement, nous avons travaillé tous les deux sur chaque partie du projet (relecture du code, corrections diverses, apport thématique aux noms des classes et variables).
+
+\begin{center} 
+	\includegraphics[scale=0.5]{img/chaton.jpg}
+\end{center}
 
 \end{document}
