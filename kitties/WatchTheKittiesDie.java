@@ -11,7 +11,8 @@ public class WatchTheKittiesDie
 	private Vue v = null;
 	private String IP;
 	private String PORT;
-	private int NB_BLOCKS;
+	private int NB_BLOCKS_X;
+	private int NB_BLOCKS_Y;
 
 	public WatchTheKittiesDie() 
 	{ 
@@ -20,12 +21,23 @@ public class WatchTheKittiesDie
 
 	public WatchTheKittiesDie(int nb_blocks) 
 	{ 
-		this(nb_blocks, "0.0.0.0", "9000");
+		this(nb_blocks, nb_blocks);
+	}
+
+	public WatchTheKittiesDie(int nb_blocks_x, int nb_blocks_y)
+	{
+		this(nb_blocks_x, nb_blocks_y, "0.0.0.0", "9000");
 	}
 
 	public WatchTheKittiesDie(int nb_blocks, String address, String port)
 	{
-		this.NB_BLOCKS = nb_blocks; 
+		this(nb_blocks, nb_blocks, address, port);
+	}
+
+	public WatchTheKittiesDie(int nb_blocks_x, int nb_blocks_y, String address, String port)
+	{
+		this.NB_BLOCKS_X = nb_blocks_x; 
+		this.NB_BLOCKS_Y = nb_blocks_y; 
 		this.IP = address;
 		this.PORT = port;
 	}
@@ -42,8 +54,8 @@ public class WatchTheKittiesDie
 		// taille = nombre de blocks (KittyCluster = carré) * 
 		// nb colonnes (ou lignes, un bloc = un carré aussi) * 
 		// taille voulue pour un chatton à l'affichage
-		jf.setSize(NB_BLOCKS * Block.BLOCK_SIZE * Vue.TAILLE_BLOCS, 
-				NB_BLOCKS * Block.BLOCK_SIZE * Vue.TAILLE_BLOCS);
+		jf.setSize(NB_BLOCKS_Y * Block.BLOCK_SIZE * Vue.TAILLE_BLOCS, 
+				NB_BLOCKS_X * Block.BLOCK_SIZE * Vue.TAILLE_BLOCS);
 
 		jf.setLocationRelativeTo(null); // set the display to the center of the screen
 		jf.setVisible(true);
@@ -85,13 +97,19 @@ public class WatchTheKittiesDie
 
 	public static void main(String[] args)
 	{
-		if(args.length != 3)
+		if(args.length > 4)
 		{
-			System.out.println("Usage : java WatchTheKittiesDie <field_size> <serveur> <port>");
+			System.out.println("Usage : java WatchTheKittiesDie <field_size_x> <field_size_y> <serveur> <port>");
 			System.exit(-1);
 		}
+		WatchTheKittiesDie wtkd;
+		if(args.length == 3)
+			wtkd = new WatchTheKittiesDie(Integer.parseInt(args[0]), args[1], args[2]);
+		else if (args.length == 4)
+			wtkd = new WatchTheKittiesDie(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], args[3]);
+		else
+			wtkd = new WatchTheKittiesDie();
 
-		WatchTheKittiesDie wtkd = new WatchTheKittiesDie(Integer.parseInt(args[0]), args[1], args[2]);
 		wtkd.go();
 	}
 }

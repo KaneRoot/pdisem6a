@@ -82,14 +82,19 @@ public class KittyCluster implements java.io.Serializable
 
 	public static KittyCluster getNewRandomKittyCluster() { return getNewRandomKittyCluster(5); }
 
-	public static KittyCluster getNewRandomKittyCluster(int nblocks)
+	public static KittyCluster getNewRandomKittyCluster(int nb_blocks)
+	{
+		return KittyCluster.getNewRandomKittyCluster(nb_blocks, nb_blocks);
+	}
+
+	public static KittyCluster getNewRandomKittyCluster(int nb_blocks_x, int nb_blocks_y)
 	{
 		java.util.Random rd = new java.util.Random();
 		int[] entiers_random = new int[Block.BLOCK_SIZE];
 
-		Block[][] b = new Block[nblocks][nblocks];
-		for(int i = 0 ; i < nblocks ; i++)
-			for(int j = 0 ; j < nblocks ; j++)
+		Block[][] b = new Block[nb_blocks_x][nb_blocks_y];
+		for(int i = 0 ; i < nb_blocks_x ; i++)
+			for(int j = 0 ; j < nb_blocks_y ; j++)
 			{
 				for(int k = 0 ; k < Block.BLOCK_SIZE ; k++)
 					entiers_random[k] = rd.nextInt() ;

@@ -8,7 +8,8 @@ public class Serveur
 
 	private String IP;
 	private String PORT;
-	private int NB_BLOCKS;
+	private int NB_BLOCKS_X;
+	private int NB_BLOCKS_Y;
 
 	public Serveur() 
 	{ 
@@ -17,19 +18,31 @@ public class Serveur
 
 	public Serveur(int nb_blocks) 
 	{ 
-		this(nb_blocks, "0.0.0.0", "9000");
+		this(nb_blocks, nb_blocks);
+	}
+
+
+	public Serveur(int nb_blocks_x, int nb_blocks_y)
+	{
+		this(nb_blocks_x, nb_blocks_y, "0.0.0.0", "9000");
 	}
 
 	public Serveur(int nb_blocks, String address, String port)
 	{
-		this.NB_BLOCKS = nb_blocks; 
+		this(nb_blocks, nb_blocks, address, port);
+	}
+
+	public Serveur(int nb_blocks_x,int nb_blocks_y, String address, String port)
+	{
+		this.NB_BLOCKS_X = nb_blocks_x; 
+		this.NB_BLOCKS_Y = nb_blocks_y; 
 		this.IP = address;
 		this.PORT = port;
 	}
 
 	public void go()
 	{
-		KittyCluster kc = KittyCluster.getNewRandomKittyCluster(NB_BLOCKS);
+		KittyCluster kc = KittyCluster.getNewRandomKittyCluster(NB_BLOCKS_X, NB_BLOCKS_Y);
 
 		try
 		{
@@ -43,7 +56,14 @@ public class Serveur
 
 	public static void main(String[] args)
 	{
-		Serveur s = new Serveur(Integer.parseInt(args[0]), args[1], args[2]);
+		Serveur s;
+		if(args.length == 3)
+			s = new Serveur(Integer.parseInt(args[0]), args[1], args[2]);
+		else if (args.length == 4)
+			s = new Serveur(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], args[3]);
+		else
+			s = new Serveur();
+
 		s.go();
 	}
 }
