@@ -170,7 +170,7 @@ implements KittyPimp
 				}
 				subjects = genocideResults[genocideResults.length -1].getCopy();
 				createTasks();
-				System.out.println("end of the shit");
+				System.out.println("End of the generation.");
 			}
 		}
 }
