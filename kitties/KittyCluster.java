@@ -1,10 +1,11 @@
 public class KittyCluster implements java.io.Serializable
 {
-    // made it public because I wanna finish this And I'm LAZY AS FUCK.
-    // fuck blackboxing 
-    // throwItAway coding style FTW!
-    // stupid assignments
+	// Content of the cluster
+	// array of array of Block
 	public Block[][] cluster;
+	
+	// The constructor.
+	// Let us create the cluster with content already.
 	public KittyCluster(Block[][] blocks) { this.cluster = blocks; }
 
 	public boolean isKittyAlive(int line, int column)
@@ -36,8 +37,10 @@ public class KittyCluster implements java.io.Serializable
 
 	public int getNbBlockColumns() { return cluster[0].length; }
 
+	/* get a copy of this KittyCluster */
 	public KittyCluster getCopy() { return new KittyCluster(this.getCopyCluster()); }
 
+	/* Sent a copy of the array of array of Blocks */
 	public Block[][] getCopyCluster()
 	{
 		Block[][] copie_cluster = new Block[getNbLines() / Block.BLOCK_SIZE][getNbColumns() / Block.BLOCK_SIZE];
@@ -66,6 +69,8 @@ public class KittyCluster implements java.io.Serializable
         }
         return new KittyCluster(result);
     }
+
+	// It was usefull to debug, not anymore
 	public void displayKittyCluster()
 	{
 		for(int i = 0 ; i < this.getNbLines() ; i++)
@@ -80,6 +85,9 @@ public class KittyCluster implements java.io.Serializable
 		System.out.println("");
 	}
 
+	/*
+	 * Three functions to get a random cluster
+	 */
 	public static KittyCluster getNewRandomKittyCluster() { return getNewRandomKittyCluster(5); }
 
 	public static KittyCluster getNewRandomKittyCluster(int nb_blocks)
