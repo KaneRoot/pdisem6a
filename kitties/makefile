@@ -30,4 +30,4 @@ destroy :
 	@sleep 1
 
 clean :
-	rm *.class
+	@-rm *.class *.log
