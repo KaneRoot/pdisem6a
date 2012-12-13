@@ -55,7 +55,7 @@ public class KittyCluster implements java.io.Serializable
             for(int j = -1; j < sizeColumn +1; j++)
             {
                 int correctedX = startingBlockLine + i;
-                int correctedY = startingBlockLine + j;
+                int correctedY = startingBlockColumn + j;
                 if(correctedX < 0) correctedX += getNbBlockLines();
                 if(correctedY < 0) correctedY += getNbBlockColumns();
                 if(correctedX >= getNbBlockLines()) correctedX %= getNbBlockLines();
