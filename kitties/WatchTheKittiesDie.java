@@ -88,6 +88,11 @@ public class WatchTheKittiesDie
 				try { java.lang.Thread.sleep(TIME_BETWEEN_FRAMES); } catch(Exception e) {}
 			}
 		}
+		catch (RemoteException e)
+		{
+			System.out.println("The server has probably been killed.");
+			System.exit(0);
+		}
 		catch (Exception e)
 		{
 			System.err.println(e) ;
