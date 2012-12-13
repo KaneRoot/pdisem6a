@@ -37,13 +37,28 @@ implements KittyPimp
 		}
 	}
 
+    // holds the starting frame, from where the next 32 ticks are calculated
 	private KittyCluster subjects;
+
+    // is used to put all the results sent back together, before storing them in the history
 	private KittyCluster[] genocideResults = new KittyCluster[Block.BLOCK_SIZE];
+
+    //global history of what has already been calculated
 	private GlobalCarnageHistory achievements;
+
+    //holds all the task that are still to be done on the current frame
 	private ArrayList<Task> tasks = new ArrayList<Task>();
+
+    //stores the last license given out, to know approximately how many clients are out there, and to prevent any duplicate
 	private int lastLicense = 0;
+
+    //holds the task that have been given to each client who wanted to calculate
 	private HashMap<Integer,Task> assignments = new HashMap<Integer, Task>();
+
+    //used by the timer
 	private TheHungUpTimer hungUp = new TheHungUpTimer(this);
+
+    //timer
 	javax.swing.Timer someoneProbablyHungUp = new javax.swing.Timer(15000, hungUp);
 
 	public void run()
@@ -72,6 +87,7 @@ implements KittyPimp
 		lastLicense++;
 		return lastLicense;
 	}
+    //
 	private int calculateNumberOfcolumns()
 	{
 		int n;
