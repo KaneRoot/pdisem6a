@@ -3,7 +3,7 @@ Nous avons estimer que des cellules qui meurent était un sujet trop triste pour
 
 C'est pourquoi nous avons décidé de modifier le thème en quelque chose de plus joyeux.
 
-Ainsi, à la place de faire mourir des cellules, nous tuons, exterminons, et détruisons des petits chatons.
+Ainsi, à la place de faire mourir des cellules, nous tuons des petits chatons.
 
 Comme nous avons tout de suite changé de thème, aucune cellule n'a du mourir pour ce projet.
 
@@ -11,6 +11,7 @@ Comme nous avons tout de suite changé de thème, aucune cellule n'a du mourir p
 Les 3 choses à faire pour lancer le tout (chacun dans un shell distinct) :
 	make lancer_serveur
 	make lancer_client
+	OU : make lancer_x_clients
 	make watch_kitties
 
 Et pour kill rmiregistry :

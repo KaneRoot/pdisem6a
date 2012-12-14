@@ -2,8 +2,8 @@
 CARNAGE_ADDRESS = "localhost"
 PORT = "9001"
 # it means N * N * block_size (32 * 32 kitties presently)
-CARNAGE_FIELD_SIZE_X = "4"
-CARNAGE_FIELD_SIZE_Y = "10"
+CARNAGE_FIELD_SIZE_X = "12"
+CARNAGE_FIELD_SIZE_Y = "5"
 
 all : compilation 
 	@-echo -e "Now :\nmake lancer_serveur\nmake lancer_client\nmake lancer_x_clients\nmake watch_kitties"

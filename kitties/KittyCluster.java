@@ -100,9 +100,9 @@ public class KittyCluster implements java.io.Serializable
 		java.util.Random rd = new java.util.Random();
 		int[] entiers_random = new int[Block.BLOCK_SIZE];
 
-		Block[][] b = new Block[nb_blocks_x][nb_blocks_y];
-		for(int i = 0 ; i < nb_blocks_x ; i++)
-			for(int j = 0 ; j < nb_blocks_y ; j++)
+		Block[][] b = new Block[nb_blocks_y][nb_blocks_x];
+		for(int i = 0 ; i < nb_blocks_y ; i++)
+			for(int j = 0 ; j < nb_blocks_x ; j++)
 			{
 				for(int k = 0 ; k < Block.BLOCK_SIZE ; k++)
 					entiers_random[k] = rd.nextInt() ;

@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/*
+ * Used by the Client, not the server
+ */
+
 public class KittyHistory implements java.io.Serializable 
 {
 	private ArrayList<KittyCluster> history = null;

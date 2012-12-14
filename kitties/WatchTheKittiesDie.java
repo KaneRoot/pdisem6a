@@ -54,8 +54,8 @@ public class WatchTheKittiesDie
 		// taille = nombre de blocks (KittyCluster = carré) * 
 		// nb colonnes (ou lignes, un bloc = un carré aussi) * 
 		// taille voulue pour un chatton à l'affichage
-		jf.setSize(NB_BLOCKS_Y * Block.BLOCK_SIZE * Vue.TAILLE_BLOCS, 
-				NB_BLOCKS_X * Block.BLOCK_SIZE * Vue.TAILLE_BLOCS);
+		jf.setSize(NB_BLOCKS_X * Block.BLOCK_SIZE * Vue.TAILLE_BLOCS, 
+				NB_BLOCKS_Y * Block.BLOCK_SIZE * Vue.TAILLE_BLOCS);
 
 		jf.setLocationRelativeTo(null); // set the display to the center of the screen
 		jf.setVisible(true);

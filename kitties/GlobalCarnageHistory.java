@@ -1,6 +1,9 @@
 import java.util.*;
 
-//singleton keeping the history of all already calculated snapshots
+/* 
+ * singleton keeping the history of all already calculated snapshots
+ * Used by the server
+ */
 public class GlobalCarnageHistory
 {
     private static final GlobalCarnageHistory _instance = new GlobalCarnageHistory();

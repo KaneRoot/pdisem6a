@@ -3,6 +3,9 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 import javax.swing.*;
 
+/**
+ * Used by WatchTheKittiesDie
+ */
 @SuppressWarnings("serial")
 public class Vue extends JPanel
 {

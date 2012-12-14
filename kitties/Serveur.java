@@ -32,7 +32,7 @@ public class Serveur
 		this(nb_blocks, nb_blocks, address, port);
 	}
 
-	public Serveur(int nb_blocks_x,int nb_blocks_y, String address, String port)
+	public Serveur(int nb_blocks_x, int nb_blocks_y, String address, String port)
 	{
 		this.NB_BLOCKS_X = nb_blocks_x; 
 		this.NB_BLOCKS_Y = nb_blocks_y; 
